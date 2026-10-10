@@ -62,6 +62,8 @@ export const HARI_MENURUT_JAM = {
 // Bab 149: jam yang dihindari (tercetak) = saat Lara dan Pati yang masing-masing 1 jam. Dipakai untuk uji silang.
 export const JAM_DIHINDARI = {
   sumber: S(149, [123]),
+  // Bab 123 (hlm. 109, larangan hubungan suami istri siang atau malam) memuat tabel jam yang sama persis; tidak disalin lagi.
+  serupa: S(123, [109]),
   cetak: {
     Minggu: [[10, 11], [5, 6]], Senin: [[8, 9], [3, 4]], Selasa: [[6, 7], [1, 2]], Rabu: [[12, 1], [5, 6]],
     Kamis: [[10, 11], [3, 4]], Jumat: [[8, 9], [1, 2]], Sabtu: [[6, 7], [11, 12]]

@@ -340,3 +340,49 @@ export const PERBINTANGAN = {
     18: J('Sumbul', 'Arab', 'Kuda', ['Rabu', 'Jumadilakir'], ['Sabtu', 'Dulkangidah'], [], 'Banyak pengetahuan, kaya, banyak istri, tanamannya berhasil; dilarang bepergian malam hari')
   }
 };
+
+// --- Bab 120 (bagian "Watak wanita menurut hari kelahiran"): 35 weton, hlm. 100-101 ---------------------------------------------------------------
+// Hanya bagian ini yang berbasis kalender. Penilaian perempuan menurut warna kulit, bentuk badan, dan gerak-gerik
+// (bagian lain bab 120) tidak dimasukkan: bukan hitungan, dan menstigma. Kalimat dilunakkan; mencerminkan norma zamannya.
+const wn = (butir, makna, arah) => ({ butir, makna, arah });
+export const WATAK_WANITA_WETON = {
+  sumber: S(120, [100, 101]),
+  catatan: 'Tafsir tradisional yang mencerminkan norma pernikahan pada zamannya (menilai perempuan terutama dari sikapnya kepada suami); tidak berlaku sebagai penilaian watak.',
+  tabel: {
+    'Sabtu Pahing': wn(1, 'Kebaikan dan keburukannya sama-sama berlebihan; mudah merasa kurang puas terhadap suami', 'netral'),
+    'Minggu Pon': wn(2, 'Berbakti kepada suami, keras hati, pencemburu', 'netral'),
+    'Senin Wage': wn(3, 'Berbakti, pandai, tegas dan pandai bicara; tidak suka dikalahkan suami', 'baik'),
+    'Selasa Kliwon': wn(4, 'Kurang berbakti kepada suami dan mudah tergoda', 'buruk'),
+    'Rabu Legi': wn(5, 'Kebaikan dan keburukannya sama-sama berlebihan', 'netral'),
+    'Kamis Pahing': wn(6, 'Berbakti kepada suami tetapi mudah tergoda', 'netral'),
+    'Jumat Pon': wn(7, 'Berani membantah suami, boros, banyak rintangan, tetapi selalu mendapat anugerah dan keinginannya terkabul', 'netral'),
+    'Sabtu Wage': wn(8, 'Sangat berbakti, pandai, teliti, hati-hati; anaknya sering meninggal (kitab)', 'netral'),
+    'Minggu Kliwon': wn(9, 'Malas, pencemburu, kurang merawat suami', 'buruk'),
+    'Senin Legi': wn(10, 'Berani terhadap suami tetapi membawa rezeki', 'netral'),
+    'Selasa Pahing': wn(11, 'Kurang merawat suami dan banyak memperhatikan diri sendiri', 'buruk'),
+    'Rabu Pon': wn(12, 'Kurang merawat suami; cemburunya tidak tampak', 'buruk'),
+    'Kamis Wage': wn(13, 'Pandai menyelesaikan masalah, banyak rezeki, keras hingga suami tunduk; mudah tergoda', 'netral'),
+    'Jumat Kliwon': wn(14, 'Berbakti, memahami kehendak suami, hati-hati, berezeki; sangat pencemburu', 'baik'),
+    'Sabtu Legi': wn(15, 'Berezeki, berani membantah suami, selalu ingin menang', 'netral'),
+    'Minggu Pahing': wn(16, 'Banyak rezeki dan keinginan tercapai; kurang jujur, tertarik barang tidak halal, berani terhadap suami', 'netral'),
+    'Senin Pon': wn(17, 'Tidak pernah merasa puas terhadap suami', 'buruk'),
+    'Selasa Wage': wn(18, 'Banyak rezeki dan sahabat, berani terhadap suami; mudah menyeleweng', 'netral'),
+    'Rabu Kliwon': wn(19, 'Malas dan kurang memperhatikan suami', 'buruk'),
+    'Kamis Legi': wn(20, 'Sangat pencemburu, kurang berbakti, mudah menyeleweng', 'buruk'),
+    'Jumat Pahing': wn(21, 'Kurang tahu malu dan kurang berbakti', 'buruk'),
+    'Sabtu Pon': wn(22, 'Banyak rezeki, hati-hati, kikir, berani terhadap suami', 'netral'),
+    'Minggu Wage': wn(23, 'Bersih segalanya, berbakti, tidak menyukai barang tidak halal', 'baik'),
+    'Senin Kliwon': wn(24, 'Malas, kurang tahu malu, makan banyak, tetapi mencintai suami', 'netral'),
+    'Selasa Legi': wn(25, 'Keras dan sombong, berani terhadap suami tetapi penuh cinta dan berhati lapang', 'netral'),
+    'Rabu Pahing': wn(26, 'Malas, iri, pencemburu', 'buruk'),
+    'Kamis Pon': wn(27, 'Pandai menarik hati suami sehingga dicintai, tetapi hanya lahiriah; mudah menyeleweng; banyak rezeki', 'netral'),
+    'Jumat Wage': wn(28, 'Banyak rezeki, dapat kaya; kurang sayang kepada suami, ceroboh, mudah menyeleweng', 'netral'),
+    'Sabtu Kliwon': wn(29, 'Malas, suka mencari perkara, pencemburu, berani terhadap suami', 'buruk'),
+    'Minggu Legi': wn(30, 'Memahami kehendak suami, banyak untung, membantu suami; kurang berbakti dan agak berani', 'netral'),
+    'Senin Pahing': wn(31, 'Malas, buruk tabiatnya', 'buruk'),
+    'Selasa Pon': wn(32, 'Waspada, banyak untung, ikhlas berbakti; mudah marah kepada suami', 'baik'),
+    'Rabu Wage': wn(33, 'Ikhlas, berbakti, sangat penyayang', 'baik'),
+    'Kamis Kliwon': wn(34, 'Pandai, suka menuntut ilmu, pendiam, pura-pura bodoh, memahami keinginan suami', 'baik'),
+    'Jumat Legi': wn(35, 'Ikhlas dan murah hati, tetapi jarang merasa puas terhadap suami', 'netral')
+  }
+};

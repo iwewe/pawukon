@@ -10,6 +10,7 @@ import {
   WATAK_NAMA_HURUF, NAMA_BAIK_BURUK, RAMALAN_NABI, PERBINTANGAN
 } from '../src/data/watakLanjut.js';
 import { HANACARAKA } from '../src/data/pernikahan.js';
+import { JAM_DIHINDARI } from '../src/data/jam.js';
 
 const ARAH = new Set(['baik', 'buruk', 'netral']);
 const NEPTU_RENTANG = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -227,4 +228,47 @@ test('600 hari berturut-turut: semua fungsi watak tanpa galat dan bersumber', ()
     assert.ok(n.bab106.sisa >= 1 && n.bab106.sisa <= 9);
     assert.ok(n.bab107.sisa >= 1 && n.bab107.sisa <= 8);
   }
+});
+
+// --- bab 120 (watak wanita menurut weton), 123 (jam), 128 (catatan) ----------------------------------------------------------------------------------
+
+import { watakWanitaWeton, jamDihindari, jadwalKehamilan, HARI, PASARAN } from '../src/index.js';
+import { WATAK_WANITA_WETON } from '../src/data/watakLanjut.js';
+
+test('bab 120: 35 weton tepat sekali (nama mesin), butir 1-35 berurutan menurut siklus 35 hari', () => {
+  const semua = HARI.flatMap(h => PASARAN.map(p => `${h} ${p}`)).sort();
+  assert.deepEqual(Object.keys(WATAK_WANITA_WETON.tabel).sort(), semua);
+  const urut = Object.entries(WATAK_WANITA_WETON.tabel).sort((a, b) => a[1].butir - b[1].butir);
+  assert.deepEqual(urut.map(([, v]) => v.butir), Array.from({ length: 35 }, (_, i) => i + 1));
+  for (const [, v] of urut) { assert.ok(v.makna); assert.ok(ARAH.has(v.arah)); }
+  // daftar kitab berjalan menurut siklus 35 hari: tiap butir = hari berikutnya dengan pasaran berikutnya (mulai Sabtu Pahing)
+  const awal = cari(k => k.weton === 'Sabtu Pahing');
+  urut.forEach(([weton], i) => assert.equal(kalenderJawa(isoDariNomor(nomorHari(awal) + i)).weton, weton, `butir ${i + 1}`));
+});
+
+test('watakWanitaWeton: contoh Sabtu Kliwon (butir 29), masehi dan sumber', () => {
+  const iso = '2026-10-10'; // Sabtu Kliwon
+  const r = watakWanitaWeton(iso);
+  assert.equal(r.masehi, iso);
+  assert.equal(r.weton, 'Sabtu Kliwon');
+  assert.equal(r.butir, 29);
+  assert.equal(r.arah, 'buruk');
+  assert.equal(r.sumber.bab, 120);
+  assert.ok(r.catatanKitab);
+});
+
+test('bab 123 (ditranskripsi terpisah dari scan) sama persis dengan bab 149: jam yang dihindari', () => {
+  // [hari, [mulai1, akhir1], [mulai2, akhir2]] jam 12-an seperti tercetak
+  const bab123 = {
+    Minggu: [[10, 11], [5, 6]], Senin: [[8, 9], [3, 4]], Selasa: [[6, 7], [1, 2]], Rabu: [[12, 1], [5, 6]],
+    Kamis: [[10, 11], [3, 4]], Jumat: [[8, 9], [1, 2]], Sabtu: [[6, 7], [11, 12]]
+  };
+  assert.deepEqual(bab123, JAM_DIHINDARI.cetak);
+  assert.equal(JAM_DIHINDARI.serupa.bab, 123);
+  const r = jamDihindari(cari(k => k.hari === 'Rabu'));
+  assert.equal(r.sumberSerupa.bab, 123);
+});
+
+test('bab 128: catatan hamil mendeking ikut pada jadwalKehamilan', () => {
+  assert.match(jadwalKehamilan('2026-01-15').catatanBab128, /ke-3, ke-5/);
 });

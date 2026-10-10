@@ -24,6 +24,8 @@ saatAgung('2026-10-10').saat;           // tujuh saat 06.00-18.00 dengan penilai
 Masukan tanggal boleh `'YYYY-MM-DD'`, `Date` (komponen lokal), `[tahun, bulan, hari]`, atau `{tahun, bulan, hari}`.
 `kalenderJawa(tgl, { jogja: true })` memakai kurup 3 versi Kasultanan Yogyakarta (memengaruhi 1821-1866).
 
+Lisensi **MIT** ([LICENSE](LICENSE)); rujukan dan kredit di [NOTICE.md](NOTICE.md).
+
 > Semua tafsir adalah **tradisi**, bukan fakta ilmiah, ramalan, atau nasihat profesional (kesehatan, kehamilan, bangunan, pernikahan).
 
 ## Isi
@@ -43,7 +45,7 @@ gambar halaman PDF sumber (OCR merusak banyak tabel); **ocr-konsisten** = teks O
 | `jam.js` | 34-37, 146-149, 157-158, 162, 164-166 (22-26, 119-123, 126-127, 131-134) | Saat agung, saat 12, saat bintang, lima saat penjaga, saat perkara, saat akad |
 | `pernikahan.js` | 18-25, 167 (14-18, 134-135) | Jodoh menurut nama dan weton, tempat tinggal menurut huruf nama |
 | `hajatan.js` | 39-42, 55-57, 65, 68-74 (26-27, 35-38, 42, 44-46) | Hari tarub, tingkeb, kehamilan, jam bayi lahir, nama bayi, jadwal selamatan bayi |
-| `watakLanjut.js` | 101-103, 105-108, 111, 114-117 (64-84, 78-80) | Watak menurut tanggal/bulan/mangsa/neptu, hari binatang, perbintangan, nama |
+| `watakLanjut.js` | 101-103, 105-108, 111, 114-117, 120 (bag.) (64-84, 78-80, 100-101) | Watak menurut tanggal/bulan/mangsa/neptu, hari binatang, perbintangan, nama |
 | `ciriTubuh.js` | 112, 113, 119 (74-77, 91-98) | Andeng-andeng, toh, ukuran anggota badan, tanda gabungan wajah dan badan |
 
 ## Referensi fungsi
@@ -81,6 +83,7 @@ Konstanta: `HARI`, `PASARAN`, `DINAPITU`, `WUKU`, `WULAN`, `TAUN`, `WINDU`, `LAM
 | `watakNeptu(tgl)` | 105-107, 116, 117 | sisa 9/8, ramalan nabi, perbintangan |
 | `bintangHari(lahir, tgl)` | 117 | apakah `tgl` hari/bulan jaya atau malang bintang kelahiran |
 | `watakNama(nama)`, `tinjauNama(nama)` | 114, 115 | watak menurut huruf nama; baik-buruknya komponen nama |
+| `watakWanitaWeton(tgl)` | 120 (bagian weton) | watak perempuan menurut weton lahir (35 butir); tafsir bernorma zamannya |
 
 ### Hari baik, bepergian, rumah
 
@@ -140,8 +143,8 @@ Konstanta: `CATATAN`, `PERINGATAN_MEDIS`, `PERINGATAN_CIRI`.
 
 ## Kalender
 
-Logika mengikuti `weton.m` (François Beauducel, BSD; lihat [NOTICE.md](NOTICE.md)), dibandingkan dengan port Python pada 3344 tanggal
-tanpa selisih. Epos: 8 Juli 1633 = Jumat Legi, 1 Sura Alip 1555.
+Algoritma merujuk pada `weton.m` (François Beauducel; kode ditulis ulang, lihat [NOTICE.md](NOTICE.md)) dan dibandingkan dengan port Python pada
+3344 tanggal tanpa selisih. Epos: 8 Juli 1633 = Jumat Legi, 1 Sura Alip 1555.
 
 | Bagian | Jangkauan |
 |---|---|
@@ -166,6 +169,31 @@ ditandai `bergantungTanggalJawa: true`. Kitab mengikuti sistem **Aboge** (Alip =
 1867 (Alip = Selasa Pon). Akibatnya hari pekan yang tercatat di sebagian tabel kitab (Kunarpawarsa, Sangarwarsa, Anggarakasih) bisa bergeser
 sehari, sehingga aturannya dievaluasi lewat tanggal dan bulan, bukan lewat hari pekan yang tertulis. Mangsa memakai kalender pranata mangsa
 baku, bukan dari kitab.
+
+### Selisih satu hari dengan kalender lain (terbuka, menunggu kalender Kraton)
+
+**Status:** belum terselesaikan; akan diperbaiki setelah kalender resmi Kraton tersedia sebagai pembanding.
+
+**Yang diketahui.** Mesin ini dibandingkan dengan `research-system-javanese-profile` (rsjp) pada 6209 hari (2018-2034):
+- **Weton, wuku, dan pasaran identik pada semua hari** (0 selisih). Hanya **nomor tanggal Jawa** (dan batas tahun) yang bisa berbeda.
+- Pada tahun AJ **1951 (Jan-Sep 2018), 1957, 1959, 1965, dan 1967 (sebagian 1968)** seluruh tanggal mesin ini **tertinggal satu hari** dari rsjp.
+  Pada tahun lain di rentang itu (1952-1956, 1958, 1960-1964, 1966) keduanya sama.
+- Contoh: 1 Sura 1957 menurut mesin = Kamis Pahing 20 Juli 2023, menurut rsjp = Rabu Legi 19 Juli 2023; 1 Sura 1959 menurut mesin =
+  Sabtu Legi 28 Juni 2025, menurut rsjp = Jumat Kliwon 27 Juni 2025. Awal 1956, 1958, dan 1960 sama (30 Juli 2022, 8 Juli 2024, 17 Juni 2026).
+- Pada 1956-1959 pola ini berarti hari ke-355 (tahun wuntu) jatuh pada tahun yang berbeda: mesin memberi 355 hari pada 1956 dan 1958, rsjp pada 1957 dan 1959.
+
+**Dugaan sebab (belum terbukti):** perbedaan penetapan tahun mana yang berumur 355 hari / pergeseran kurup, atau konvensi pergantian hari
+saat maghrib (malam 1 Sura jatuh pada malam sebelum tanggal Masehi yang dikutip). Tidak ada satu pun dari keduanya yang dapat dipastikan tanpa kalender Kraton.
+
+**Dampak:** hanya hasil yang memakai tanggal, bulan, atau tahun Jawa (`kalenderJawa`, aturan `bergantungTanggalJawa: true`) pada tahun-tahun di atas yang bisa
+bergeser satu hari. Semua yang berbasis hari, pasaran, wuku, dan jumlah neptu tidak terpengaruh. Opsi `{ jogja: true }` hanya menyangkut kurup 1821-1866.
+
+**Rencana perbaikan:**
+1. Kumpulkan 1 Sura (hari, pasaran, tanggal Masehi) dan panjang tiap bulan dari kalender Kraton untuk AJ sekitar 1930-1990 (lebih panjang lebih baik).
+2. Bandingkan dengan mesin dan rsjp; tentukan mana yang cocok.
+3. Bila Kraton cocok dengan salah satunya, koreksi tabel panjang tahun/kurup di `src/kalender.js` dan perbarui `tests/golden.json`; bila berbeda dari
+   keduanya, tambahkan opsi `kalenderJawa(tgl, { kraton: true })` seperti `jogja`.
+4. Tambahkan tes regresi per tanggal 1 Sura dari data Kraton.
 
 ## Asumsi dan anomali kitab
 
@@ -201,6 +229,9 @@ Tercatat di data dan keluar pada hasil fungsi yang bersangkutan. Keganjilan ceta
 - Kalimat ditulis lebih netral daripada kitab (mis. "durhaka" menjadi "kurang berbakti"). Penolak, syarat cincin, kisah nabi (bab 108), ciri pencuri, dan uraian persetubuhan tidak dimasukkan.
 - Bab 117: kata "harus dimulai" pada hari kemalangan tampaknya salah cetak; mesin hanya melaporkan kecocokan hari dan bulan. Kalimat "dekat ajal" adalah isi kitab, bukan fakta medis.
 - Bab 112: Tujusih (butir 17 dan 18) dan Gunasakti (9 dan 21) ganda; butir 36 dan 37 bertuliskan letak sama dengan nama berbeda; butir 57 tanpa nama.
+- **Bab 120-129 (hanya bagian berbasis kalender yang dikodekan):** watak perempuan menurut weton lahir (bab 120, 35 butir; kalimat dilunakkan dan tafsirnya mencerminkan norma zamannya),
+  jam larangan bab 123 (tabel yang sama persis dengan bab 149, dipakai sebagai uji silang tanpa disalin lagi), dan catatan bab 128 tentang "hamil mendeking" (urutan kehamilan atau bulan? tidak jelas; dua bacaan disebut).
+  Lihat "Belum dikerjakan" untuk yang sengaja tidak dimasukkan.
 - Ciri tubuh adalah fisiognomi tradisional tanpa dasar ilmiah; butir yang berisi perkiraan umur dan keturunan diberi tanda "(kitab)". Jangan dipakai menilai orang.
 
 ## Cara menulis data
@@ -219,7 +250,7 @@ Tercatat di data dan keluar pada hasil fungsi yang bersangkutan. Keganjilan ceta
 | Bertamu (cuwa/suka/hewa/begja) | 137 | Data ada di `bepergian.js`, tidak dihitung: kitab tidak menyebut cara menjatuhkan neptu ke empat nama |
 | Na'as hari, bulan, tahun | 163 | Hanya uraian akibat |
 | Hajatan: sajen, busana, tata cara, penolak godaan | 38, 43-54, 58-64, 66-67, 71-74 (tata cara) | **Sengaja tidak dimasukkan** (ritual) |
-| Katuranggan wanita; hubungan suami istri | 120-127 | Ditunda sampai diminta (penilaian calon istri menurut ciri tubuh; uraian hubungan seksual) |
+| Bab 120-129 selain bagian di atas | 120 (penilaian perempuan menurut warna kulit, bentuk badan, gerak-gerik), 121, 122, 124-127, 128-129 (selain catatan) | **Sengaja tidak dimasukkan:** bukan hitungan kalender dan menstigma (penilaian watak dan kesetiaan perempuan dari penampilan; penilaian erotis tubuh), mantra dan tata cara (125-126), ramuan pembersih (127), aturan hari yang mengaitkan kecacatan atau "kegilaan" anak dengan perilaku orang tua (122), serta pantangan, ramuan, dan doa kehamilan (128-129) |
 | Ramuan, mantra, doa, tumbal, ritual bepergian | 75-90, 138, 139, 142, 169-171, 182-184, 186, 200-221, 280-285, 319, 323-324, 326; doa pada 157; busana/ritual pada 158 dan 166 | **Sengaja tidak dimasukkan** (ramuan dapat membahayakan, doa bukan data) |
 | Tanda alam, hewan, mimpi, pencuri, barang hilang | 222-317 | Di luar perhitungan kalender |
 | Selisih satu hari tanggal Jawa dengan Kraton | | Menunggu kalender Kraton sebagai pembanding |

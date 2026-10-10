@@ -91,7 +91,7 @@ export function jamDihindari(input) {
   return {
     masehi: r.masehi, weton: r.weton,
     jam: r.saat.filter(s => s.nama === 'Lara' || s.nama === 'Pati').map(s => ({ nama: s.nama, mulai: s.mulai, selesai: s.selesai })),
-    sumber: JAM_DIHINDARI.sumber, catatan: CATATAN_JAM
+    sumber: JAM_DIHINDARI.sumber, sumberSerupa: JAM_DIHINDARI.serupa, catatan: CATATAN_JAM
   };
 }
 

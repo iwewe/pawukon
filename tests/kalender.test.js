@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { kalenderJawa, weton, wuku, selapan, nomorHari } from '../src/index.js';
+import { kalenderJawa, weton, wuku, selapan, nomorHari, isoDariNomor } from '../src/index.js';
 
 const golden = JSON.parse(readFileSync(new URL('./golden.json', import.meta.url)));
 
@@ -146,4 +146,22 @@ test('masukan tidak valid ditolak', () => {
 
 test('wuku(): nomor 1–30', () => {
   assert.deepEqual(wuku('1975-04-26'), { wuku: 'Kuningan', nomorWuku: 12 });
+});
+
+// --- kasus terbuka: selisih satu hari dengan research-system-javanese-profile (lihat README, "Selisih satu hari") ----------------------
+// Tes ini MENGUNCI keluaran mesin saat ini supaya mudah dikoreksi setelah kalender Kraton tersedia. Bila koreksi dilakukan,
+// ubah nilai `mesin` menjadi nilai Kraton dan hapus catatan kasus terbuka di README.
+test('kasus terbuka: 1 Sura 1956-1960 menurut mesin (rsjp: 1957 = 2023-07-19, 1959 = 2025-06-27)', () => {
+  const awal = (tahun, dari) => {
+    for (let n = nomorHari(dari); n < nomorHari(dari) + 400; n++) {
+      const k = kalenderJawa(isoDariNomor(n));
+      if (k.tanggal.dina === 1 && k.tanggal.wulan === 'Sura' && k.tanggal.tahun === tahun) return isoDariNomor(n);
+    }
+  };
+  const mesin = { 1956: '2022-07-30', 1957: '2023-07-20', 1958: '2024-07-08', 1959: '2025-06-28', 1960: '2026-06-17' };
+  const dari = { 1956: '2022-06-01', 1957: '2023-06-01', 1958: '2024-06-01', 1959: '2025-06-01', 1960: '2026-06-01' };
+  for (const [t, iso] of Object.entries(mesin)) assert.equal(awal(+t, dari[t]), iso, `1 Sura ${t}`);
+  // weton tetap sama dengan pembanding pada 1 Sura versi rsjp (19 Juli 2023 = Rabu Legi, 27 Juni 2025 = Jumat Kliwon)
+  assert.equal(weton('2023-07-19').weton, 'Rabu Legi');
+  assert.equal(weton('2025-06-27').weton, 'Jumat Kliwon');
 });

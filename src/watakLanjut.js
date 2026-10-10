@@ -4,6 +4,7 @@
  * - watakTanggal: bab 101 dan 108 (tanggal Jawa). watakBulan: bab 102 dan 111. watakMangsa: bab 103.
  * - watakNeptu: bab 105, 106, 107, 116, dan 117 (jumlah neptu hari + pasaran). bintangHari: hari dan bulan jaya/malang bab 117.
  * - watakNama: bab 114 (huruf depan dan belakang). tinjauNama: bab 115 (baik-buruknya nama).
+ * - watakWanitaWeton: bab 120 (bagian watak wanita menurut weton lahir).
  * - watakLanjut: gabungan untuk satu tanggal lahir (dan nama).
  *
  * Tafsir tradisional, bukan ramalan dan bukan penilaian psikologis. Bab yang memakai tanggal atau bulan Jawa bergantung
@@ -15,7 +16,7 @@ import { mangsaDari } from './rumah.js';
 import { aksaraNama } from './pernikahan.js';
 import {
   WATAK_TANGGAL, WATAK_BULAN, WATAK_MANGSA, WATAK_NEPTU, WATAK_SISA_9, WATAK_SISA_8, HARI_BINATANG, NASIB_BULAN,
-  WATAK_NAMA_HURUF, NAMA_BAIK_BURUK, RAMALAN_NABI, PERBINTANGAN
+  WATAK_NAMA_HURUF, NAMA_BAIK_BURUK, RAMALAN_NABI, PERBINTANGAN, WATAK_WANITA_WETON
 } from './data/watakLanjut.js';
 
 export const CATATAN_WATAK = 'Tafsir tradisional dari kitab Betaljemur Adammakna; bukan ramalan dan bukan penilaian psikologis.';
@@ -91,6 +92,15 @@ export function bintangHari(lahir, tanggal) {
     jaya: cek(b.jaya), malang: cek(b.malang),
     bergantungTanggalJawa: true, spekulatif: t.spekulatif,
     asumsi: PERBINTANGAN.asumsi, peringatan: PERBINTANGAN.peringatan, sumber: PERBINTANGAN.sumber, catatan: CATATAN_WATAK
+  };
+}
+
+/** Bab 120 (bagian watak wanita menurut hari kelahiran): weton lahir seorang perempuan. Tafsir yang mencerminkan norma zamannya. */
+export function watakWanitaWeton(lahir) {
+  const k = kalenderJawa(lahir);
+  return {
+    masehi: k.masehi, weton: k.weton, ...WATAK_WANITA_WETON.tabel[k.weton],
+    catatanKitab: WATAK_WANITA_WETON.catatan, sumber: WATAK_WANITA_WETON.sumber, catatan: CATATAN_WATAK
   };
 }
 

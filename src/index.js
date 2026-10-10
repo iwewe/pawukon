@@ -21,6 +21,6 @@ export {
   hariTarub, tingkeb, cariTingkeb, tambahBulan, jadwalKehamilan, saatBayiLahir, namaBayi, jadwalBayi
 } from './hajatan.js';
 export {
-  watakTanggal, watakBulan, watakMangsa, watakNeptu, bintangHari, watakNama, tinjauNama, watakLanjut
+  watakTanggal, watakBulan, watakMangsa, watakNeptu, bintangHari, watakNama, tinjauNama, watakWanitaWeton, watakLanjut
 } from './watakLanjut.js';
 export { andengAndeng, toh, ciriAnggota, tandaGabungan, cariCiri, PERINGATAN_CIRI } from './ciriTubuh.js';

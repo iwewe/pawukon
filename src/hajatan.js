@@ -94,7 +94,7 @@ export function jadwalKehamilan(acuan) {
       tanggalBulanKe7: tujuh, kandidat: cariTingkeb(tujuh, 30), bergantungTanggalJawa: true,
       asumsi: 'Kandidat dicari 30 hari sejak tanggal bulan ke-7; kitab tidak menyebut jangkauan.', sumber: TINGKEB.sumber
     },
-    asumsi: KEHAMILAN.asumsi, makna: KEHAMILAN.makna, sumber: KEHAMILAN.sumber, catatan: CATATAN_HAJATAN
+    asumsi: KEHAMILAN.asumsi, makna: KEHAMILAN.makna, catatanBab128: KEHAMILAN.catatanBab128, sumber: KEHAMILAN.sumber, catatan: CATATAN_HAJATAN
   };
 }
 

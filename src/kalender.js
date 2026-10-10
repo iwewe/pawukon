@@ -2,8 +2,8 @@
  * Mesin kalender Jawa (Sultan Agungan): weton, wuku, tanggal Jawa, windu, lambang, kurup.
  *
  * Fungsi murni, tanpa dependensi, tanpa zona waktu: semua dihitung dari nomor
- * hari kalender Gregorian (proleptik). Logika mengikuti `weton.m` karya
- * François Beauducel (BSD, lihat NOTICE.md) dan artikel Karjanto & Beauducel (2020).
+ * hari kalender Gregorian (proleptik). Algoritma merujuk pada `weton.m` karya
+ * François Beauducel dan artikel Karjanto & Beauducel (2020); kode ditulis ulang (lihat NOTICE.md).
  *
  * Batas pemakaian:
  *  - weton, wuku, neptu: siklus murni (modulo 5/7/35/210), berlaku untuk tanggal apa pun.

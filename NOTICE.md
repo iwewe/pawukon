@@ -1,34 +1,15 @@
-# Pemberitahuan pihak ketiga
+# Rujukan dan kredit
 
-Logika perhitungan di `src/kalender.js` (tabel windu/taun/kurup, rumus wuku, pasaran,
-dan aturan hari mulia) mengikuti `weton.m` karya François Beauducel:
-https://github.com/beaudu/weton
+Proyek ini berlisensi MIT (lihat [LICENSE](LICENSE)). Seluruh kode ditulis ulang dalam JavaScript; tidak ada kode sumber
+pihak lain yang disalin.
 
-Lisensi `weton.m` (BSD), disertakan sesuai syaratnya:
+**Algoritma kalender.** Logika perhitungan di `src/kalender.js` (tabel windu/taun/kurup, rumus wuku, pasaran, dan aturan
+hari mulia) merujuk pada cara kerja `weton.m` karya François Beauducel (https://github.com/beaudu/weton) dan artikel
+Karjanto & Beauducel (2020). Rujukan ini dicantumkan sebagai kredit; kodenya independen dan diuji terhadap port Python
+pada 3344 tanggal.
 
-```
-Copyright (c) 2020, François Beauducel, covered by BSD License.
-All rights reserved.
+**Data tafsir.** Fakta (angka, nama, pasangan, arah, urutan) berasal dari kitab Betaljemur Adammakna (terjemahan Indonesia
+modern). Kalimat makna ditulis ulang dengan kata sendiri dan tidak disalin; teks OCR mentah tidak disertakan. Lihat bagian
+"Cara menulis data" pada [README](README.md).
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-   * Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-   * Redistributions in binary form must reproduce the above copyright
-     notice, this list of conditions and the following disclaimer in
-     the documentation and/or other materials provided with the distribution
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-```
+**Pembanding.** `research-system-javanese-profile` (MIT) dan `almanak` dipakai hanya sebagai pembanding hasil, bukan sumber kode.

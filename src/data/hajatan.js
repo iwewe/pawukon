@@ -72,6 +72,7 @@ export const KEHAMILAN = {
     { bulan: 8, ringkas: 'selamatan' }, { bulan: 9, ringkas: 'selamatan; bila menjelang bulan ke-10 belum ada tanda lahir, ada selamatan tambahan' }
   ],
   mendeking: [3, 5, 7, 9],
+  catatanBab128: 'Bab 128 (hlm. 111) mendefinisikan hamil mendeking sebagai kehamilan "ke-3, ke-5" (hitungan ganjil, dibanding kehamilan genap yang lebih mudah); tidak jelas apakah yang dihitung urutan kehamilan atau bulan seperti bab 55. Kedua bacaan disebut, tidak dipilih.',
   makna: 'Kehamilan pada bulan ganjil (3, 5, 7, 9) disebut mendeking dan dianggap lebih sulit; ini tafsir tradisional, bukan panduan kehamilan.'
 };
 
