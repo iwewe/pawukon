@@ -1,4 +1,4 @@
-# Pawukon dan astrologi: letak perbedaannya, satu temuan tentang kurup, dan rancangan penyejajaran
+# Pawukon dan astrologi: letak perbedaannya, satu temuan tentang kurup, dan penyejajarannya
 
 Dokumen ini menjawab pertanyaan: *apakah hitungan pawukon dapat disejajarkan dengan mesin horoskop (astrologi Barat, Vedic,
 Human Design, Gene Keys), atau ia pseudo-astrologi?* Jawaban dibagi per lapis, ditambah satu pengukuran yang menunjukkan
@@ -18,8 +18,8 @@ bagan kelahiran tanpa tafsir. Semua angka pengukuran di bawah dapat diulang deng
 3. **Hitungan sahih, tafsir tidak tervalidasi.** Hitungan adalah aritmetika kalender yang deterministik dan diuji. Tafsir (watak,
    jodoh, hari baik) adalah tradisi tanpa bukti empiris, sama statusnya dengan tafsir astrologi Barat, Vedic, Human Design,
    dan Gene Keys.
-4. **Penyejajaran teknis mungkin dan menguntungkan kedua pihak.** NatalEngine sudah punya efemeris, jadi *batas hari magrib*
-   (yang rumusan kita belum selesaikan) dapat dihitung tepat dari terbenam matahari menurut lokasi (bagian 5).
+4. **Penyejajaran teknis mungkin dan sudah diterapkan secara lokal.** NatalEngine sudah punya efemeris, jadi *batas hari
+   magrib* (yang rumusan kita belum selesaikan) dihitung tepat dari terbenam matahari menurut lokasi (bagian 5).
 
 ## 2. Dua lapis pada mesin horoskop, satu lapis pada pawukon
 
@@ -82,7 +82,7 @@ Hasil:
 | **Semua** | 5184 | **1,207** | **2,873** | **254 (4,9%)** |
 
 \* Magrib yang membuka hari ke-1 dianggap pukul 18.00 WIB pada hari sebelumnya, yaitu 6 jam sebelum `D 00:00`. Sebuah bulan dihitung "sebelum konjungsi" bila magrib itu mendahului konjungsi, yaitu `jam < 0,25` hari.
-Magrib sebenarnya di Jawa bergeser sekitar ±0,5 jam sepanjang tahun; perhitungan tepat menyusul pada rancangan di bagian 5.
+Magrib sebenarnya di Jawa bergeser sekitar ±0,5 jam sepanjang tahun; perhitungan dengan terbenam sebenarnya ada di bagian 5 dan belum dipakai ulang untuk tabel ini.
 
 Kemiringan rata-rata selisih terhadap tahun (regresi linear atas seluruh bulan):
 
@@ -118,32 +118,33 @@ Yang tampak:
 * Model ΔT `astronomy-engine` untuk tahun lampau mengandung ketidakpastian detik hingga menit; di bawah skala pengukuran.
 * Ini mengukur kalender aritmetika terhadap Bulan; bukan bukti bahwa tafsir weton atau wuku benar.
 
-## 5. Rancangan penyejajaran di NatalEngine
+## 5. Penyejajaran di NatalEngine
+
+Bagian ini awalnya rancangan; kini **sudah diterapkan sebagai tambahan lokal** pada salinan NatalEngine di server pribadi
+(tidak dipublikasikan ke repositori sumbernya). Tambahan itu: kalkulator, tab "Pawukon" di antarmuka web, tool MCP
+`calculate_pawukon`, dan bagian `pawukon` pada `calculate_natal_chart`; seluruhnya diuji.
 
 ### 5.1 Kategori dan prinsip
 
-Prinsip NatalEngine ("no interpretation, just the facts") sama dengan prinsip rumusan ini. Pawukon cocok sebagai kalkulator
-terpisah yang hanya mengembalikan fakta (weton, wuku, neptu, tanggal Jawa, windu, lambang, kurup), dengan tafsir di modul
-data. Kategorinya **kalender/petungan**, bukan astrologi.
+Prinsip NatalEngine ("no interpretation, just the facts") sama dengan prinsip rumusan ini. Pawukon menjadi kalkulator
+terpisah yang hanya mengembalikan fakta (weton, wuku, neptu, tanggal Jawa, windu, lambang, kurup), dengan tafsir di luar
+kalkulator. Kategorinya **kalender/petungan**, bukan astrologi; antarmuka web menuliskannya di panel itu sendiri.
 
-### 5.2 Antarmuka usulan
+### 5.2 Antarmuka
 
 Mengikuti urutan parameter `calculateAstrology(birthDate, birthHour, timezone, latitude?, longitude?)`:
 
 ```
-calculatePawukon(birthDate, birthHour, timezone, latitude?, longitude?, options?)
-options: { batasHari: 'magrib' | 'tengahMalam' }
+calculatePawukon(birthDate, birthHour, timezone, latitude?, longitude?, { dayBoundary: 'maghrib' | 'midnight' })
 
 hasil: {
-  masehi,                    // tanggal sipil lahir
-  hariJawa: {                // tanggal yang dipakai sesudah memperhitungkan batas hari
-    masehi, bergeserSatuHari
-  },
-  batas: { aturan, magribLokal, sesudahMagrib, akurat },   // 'akurat' = false bila lokasi tidak diberikan
-  hari, pasaran, weton, neptu: {hari, pasaran, total},
-  wuku, nomorWuku,
-  tanggal: { dina, wulan, tahun, taun, windu, lambang, kurup },
-  hariMulia: [...], spekulatif
+  system, calendar,
+  input:       { birthDate, birthHour, timezone, latitude, longitude, dayBoundary },
+  dayBoundary: { rule, sunsetLocal, afterSunset, accurate, shifted, javaneseDayDate },
+  weton:       { day, dayJavanese, pasaran, name, neptu: { day, pasaran, total } },
+  wuku:        { name, number },
+  javaneseDate:{ day, month, year, yearName, windu, lambang, kurup, kurupShort } | null,
+  specialDays, speculative, summary, notes
 }
 ```
 
@@ -153,30 +154,28 @@ Semua keluaran pawukon (hari, pasaran, wuku, tanggal Jawa) bergantung pada nomor
 menggeser nomor hari satu langkah bila lahir sesudah magrib.
 
 ```
-magrib = SearchRiseSet(Body.Sun, new Observer(lintang, bujur, 0), -1, awalHariLokal, 1)     // -1 = terbenam
+magrib = SearchRiseSet(Body.Sun, new Observer(lintang, bujur, 0), -1, tengahMalamLokal, 1)    // -1 = terbenam
 sesudahMagrib = (waktuLahirUT >= magrib)
 hariJawa = sesudahMagrib ? tanggalSipil + 1 : tanggalSipil
-lalu: kalenderJawa(hariJawa)                                                                 // mesin pawukon, tanpa perubahan
+lalu: kalenderJawa(hariJawa)                                                                   // mesin pawukon, tanpa perubahan
 ```
 
-Catatan:
-* Konfirmasi API dari berkas deklarasi `astronomy.d.ts` (astronomy-engine 2.1.19): `direction` bernilai `+1` terbit atau `-1`
-  terbenam; hasil `null` bila tidak ada peristiwa pada jendela (kasus kutub), sehingga perlu cadangan (jatuh ke 18.00 lokal,
-  `akurat: false`).
-* Tanpa lintang/bujur: pakai 18.00 lokal dan tandai `akurat: false`, mengikuti kebiasaan `rising.accurate` di NatalEngine.
-* Zona waktu: parameter `timezone` NatalEngine adalah selisih UTC dalam jam; sambungkan dengan `resolveUtcOffset` yang sudah ada.
+* `astronomy-engine` 2.1.19: `direction` bernilai `+1` terbit atau `-1` terbenam; hasil `null` bila tidak ada peristiwa pada
+  jendela (matahari tengah malam di lintang tinggi).
+* Tanpa lintang/bujur, atau bila terbenam tidak ada: dipakai **pukul 18.00 lokal** dan `dayBoundary.accurate = false`.
+* Mengapa terbenam sungguhan dan bukan 18.00 tetap: di Yogyakarta terbenam jatuh pukul 17:32 pada 26 Juni, 18:04 pada
+  15 Januari, dan 17:54 pada 21 Desember (terukur dari keluaran kalkulator). Dengan 18.00 tetap, kelahiran pukul 17:32 sampai
+  18:00 pada Juni salah mendapat weton hari yang sama padahal sudah masuk hari berikutnya.
 
-### 5.4 Keputusan terbuka (milik pengguna)
+### 5.4 Keputusan (disetujui pengguna, 11 Oktober 2026)
 
-1. **Batas bawaan.** Keraton memakai magrib (tesis hlm. 54), tetapi pemakai primbon bermacam-macam; banyak yang memakai tanggal
-   sipil. Usulan: bawaan `magrib` bila lokasi tersedia, selain itu `tengahMalam`, selalu menampilkan `batas`.
-2. **Definisi magrib.** Terbenam matahari geometris (bawaan `astronomy-engine`, ada koreksi refraksi), atau ditambah selisih
-   beberapa menit. Usulan: terbenam standar tanpa tambahan.
-3. **Hasil `spekulatif`.** Sesudah 25 Agustus 2052 hasil adalah ekstrapolasi dan tabel mesin berakhir 3 Juli 2285 (lihat
-   RUMUSAN_PERHITUNGAN.md bagian 11). Usulan: lempar galat atau tandai `spekulatif`, dan jangan mengembalikan hasil diam-diam.
-4. **Ketergantungan.** Pawukon tanpa dependensi; hanya pembungkus NatalEngine yang memakai `astronomy-engine`. Usulan: pembungkus
-   memanggil `kalenderJawa(tanggalSipil)` milik pawukon dan hanya mengurus batas hari.
-5. **Tafsir.** Tetap di luar kalkulator, sama seperti NatalEngine memisahkan data bagan dari deskripsi.
+1. **Batas bawaan = magrib.** Tanpa lokasi dipakai 18.00 lokal dan ditandai `accurate: false` (bukan tengah malam).
+2. **Magrib = terbenam standar** `astronomy-engine`, tanpa tambahan menit.
+3. **Di luar 8 Juli 1633 sampai 3 Juli 2285** `javaneseDate` bernilai `null` dengan catatan, sedangkan siklus hari tetap dihitung
+   (berlaku untuk semua tanggal). Sesudah 25 Agustus 2052 hasil ditandai `speculative`. Penyebabnya: tabel mesin JS hanya 672
+   tahun (lihat RUMUSAN_PERHITUNGAN.md bagian 11); pembungkus menjaga agar hasil keliru tidak pernah dikembalikan.
+4. **Tafsir tetap di luar kalkulator.** Pembungkus NatalEngine memakai `astronomy-engine`; mesin pawukon tetap tanpa dependensi
+   dan disalin apa adanya (vendored).
 
 ## 6. Yang tidak diklaim
 
