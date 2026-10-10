@@ -1,0 +1,182 @@
+{
+ "bulanBaruAstronomi": 5189,
+ "bulanJawa": 5184,
+ "bulanBaruSejati": {
+  "bulanSinodisRataRata": 29.530588,
+  "sdJam": 7.52,
+  "maksJam": 14.21
+ },
+ "semua": {
+  "mesin": {
+   "bulan": 5184,
+   "rataSelisihHari": 1.704,
+   "rataHari": 1.207,
+   "sdHari": 0.567,
+   "minHari": -0.504,
+   "maksHari": 2.996,
+   "awalMaghribSebelumKonjungsi": 254,
+   "distribusi": {
+    "0": 73,
+    "1": 1804,
+    "2": 2890,
+    "3": 417
+   }
+  },
+  "murni": {
+   "bulan": 5184,
+   "rataSelisihHari": 3.371,
+   "rataHari": 2.873,
+   "sdHari": 1.105,
+   "minHari": -0.019,
+   "maksHari": 5.798,
+   "awalMaghribSebelumKonjungsi": 6,
+   "distribusi": {
+    "0": 1,
+    "1": 204,
+    "2": 1073,
+    "3": 1490,
+    "4": 1500,
+    "5": 841,
+    "6": 75
+   }
+  }
+ },
+ "kemiringanHariPerTahun": {
+  "mesin": -0.00022,
+  "murni": 0.00792
+ },
+ "perKurup": [
+  {
+   "kurup": "Jamingiyah 1555-1626",
+   "mesin": {
+    "bulan": 864,
+    "rataSelisihHari": 1.924,
+    "rataHari": 1.445,
+    "sdHari": 0.521,
+    "minHari": -0.019,
+    "maksHari": 2.996,
+    "awalMaghribSebelumKonjungsi": 6,
+    "distribusi": {
+     "0": 1,
+     "1": 187,
+     "2": 553,
+     "3": 123
+    }
+   },
+   "murni": {
+    "bulan": 864,
+    "rataSelisihHari": 1.924,
+    "rataHari": 1.445,
+    "sdHari": 0.521,
+    "minHari": -0.019,
+    "maksHari": 2.996,
+    "awalMaghribSebelumKonjungsi": 6,
+    "distribusi": {
+     "0": 1,
+     "1": 187,
+     "2": 553,
+     "3": 123
+    }
+   }
+  },
+  {
+   "kurup": "Kamsiyah 1627-1746",
+   "mesin": {
+    "bulan": 1440,
+    "rataSelisihHari": 1.716,
+    "rataHari": 1.207,
+    "sdHari": 0.563,
+    "minHari": -0.368,
+    "maksHari": 2.768,
+    "awalMaghribSebelumKonjungsi": 67,
+    "distribusi": {
+     "0": 17,
+     "1": 496,
+     "2": 806,
+     "3": 121
+    }
+   },
+   "murni": {
+    "bulan": 1440,
+    "rataSelisihHari": 2.716,
+    "rataHari": 2.207,
+    "sdHari": 0.563,
+    "minHari": 0.632,
+    "maksHari": 3.768,
+    "awalMaghribSebelumKonjungsi": 0,
+    "distribusi": {
+     "1": 17,
+     "2": 496,
+     "3": 806,
+     "4": 121
+    }
+   }
+  },
+  {
+   "kurup": "Arbangiyah 1747-1866",
+   "mesin": {
+    "bulan": 1440,
+    "rataSelisihHari": 1.667,
+    "rataHari": 1.158,
+    "sdHari": 0.565,
+    "minHari": -0.504,
+    "maksHari": 2.8,
+    "awalMaghribSebelumKonjungsi": 83,
+    "distribusi": {
+     "0": 24,
+     "1": 530,
+     "2": 788,
+     "3": 98
+    }
+   },
+   "murni": {
+    "bulan": 1440,
+    "rataSelisihHari": 3.667,
+    "rataHari": 3.158,
+    "sdHari": 0.565,
+    "minHari": 1.496,
+    "maksHari": 4.8,
+    "awalMaghribSebelumKonjungsi": 0,
+    "distribusi": {
+     "2": 24,
+     "3": 530,
+     "4": 788,
+     "5": 98
+    }
+   }
+  },
+  {
+   "kurup": "Salasiyah 1867-1986",
+   "mesin": {
+    "bulan": 1440,
+    "rataSelisihHari": 1.599,
+    "rataHari": 1.112,
+    "sdHari": 0.56,
+    "minHari": -0.402,
+    "maksHari": 2.798,
+    "awalMaghribSebelumKonjungsi": 98,
+    "distribusi": {
+     "0": 31,
+     "1": 591,
+     "2": 743,
+     "3": 75
+    }
+   },
+   "murni": {
+    "bulan": 1440,
+    "rataSelisihHari": 4.599,
+    "rataHari": 4.112,
+    "sdHari": 0.56,
+    "minHari": 2.598,
+    "maksHari": 5.798,
+    "awalMaghribSebelumKonjungsi": 0,
+    "distribusi": {
+     "3": 31,
+     "4": 591,
+     "5": 743,
+     "6": 75
+    }
+   }
+  }
+ ]
+}

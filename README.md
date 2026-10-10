@@ -28,6 +28,7 @@ Repositori: https://github.com/iwewe/pawukon. Lisensi **MIT** ([LICENSE](LICENSE
 
 **Porting ke bahasa lain:** rumusan perhitungan pawukon dan kalender Jawa yang tidak bergantung bahasa (hanya bilangan bulat),
 beserta vektor uji dan checksum seluruh rentang, ada di [RUMUSAN_PERHITUNGAN.md](RUMUSAN_PERHITUNGAN.md); implementasi acuan di `spec/`.
+Posisi pawukon terhadap astrologi (hitungan vs tafsir), pengukuran kalender terhadap bulan baru astronomi, dan rancangan batas hari magrib: [PAWUKON_DAN_ASTROLOGI.md](PAWUKON_DAN_ASTROLOGI.md).
 
 > Semua tafsir adalah **tradisi**, bukan fakta ilmiah, ramalan, atau nasihat profesional (kesehatan, kehamilan, bangunan, pernikahan).
 
