@@ -14,7 +14,7 @@ weton('1975-04-26');
 //   neptu: { hari: 9, pasaran: 8, total: 17 }, wuku: 'Kuningan', nomorWuku: 12 }
 
 kalenderJawa('2021-08-10').teks;
-// 'Selasa Pon Kulawu 1 Sura 1955 AJ Alip Sengara Langkir Salasiyah (Asapon) [Siji Sura]'
+// 'Selasa Pon Kulawu 1 Sura 1955 AJ Alip Sancaya Kulawu Salasiyah (Asapon) [Siji Sura]'
 
 tafsirLahir('1975-04-26').watak.wuku;   // { nama: 'Kuningan', dewa: 'Indra', kala: 'Barat', ... }
 tinjauHari('2026-10-10', { untuk: 'nikah' }).temuan;   // temuan baik/buruk + rujukan bab dan halaman
@@ -158,6 +158,10 @@ yang sudah dikoreksi pada 3344 tanggal tanpa selisih. Epos: 8 Juli 1633 = Jumat 
   Samparwangke yang disebut kitab (wuku + hari + pasaran), bukti yang tidak bergantung pada `weton.m`.
 - **Tanggal Jawa:** cocok dengan tabel awal bulan kalender **Karaton Yogyakarta** untuk kurup Asapon (1936-2052) dan Aboge (1819-1935), anchor 1 Sura Alip di
   keempat kurup, serta 12 titik Almanak Jawa (lihat bagian Verifikasi). Untuk 1633-1819 (Amahgi, Amiswon) tidak ada tabel Karaton; di sana mesin mengikuti metode windu asli (lihat "Metode tertua dan sumber pembanding").
+- **Windu dan lambang** mengikuti blok **delapan tahun Jawa** (Alip membuka windu baru; urutan Kuntara, Sangara, Sancaya, Adi menurut Keraton), seperti tesis, uraian
+  Keraton ("masing-masing lambang berumur 8 tahun"), dan rsjp. `weton.m` menghitungnya dari blok 2835 hari sejak epoch, sehingga label berbeda satu sampai tiga hari pada
+  batas windu (53 dari 153.086 hari; contoh yang diterbitkan `weton.md` untuk 10 Agustus 2021 mencetak "Sengara Langkir", di sini "Sancaya Kulawu"). Ejaan Sangara mengikuti Keraton.
+  Penyimpangan ini disengaja dan diuji (`tests/kalender.test.js`).
 - **Tes regresi:** `tests/golden.json` berisi 458 tanggal dari port Python `weton.m` yang sudah dikoreksi agar cocok dengan Karaton dan metode windu asli (bukan keluaran Octave asli); `tests/kraton.test.js` memeriksa langsung terhadap tabel Karaton.
 - **Hari mulia** yang dihitung: Siji Sura, Kuningan, Hanggara Asih, Dina Mulya, Dina Purnama ("Aboge" dan "Daltugi" di `weton.m`
   hanya memeriksa sebagian syarat, jadi sengaja tidak dimasukkan).
@@ -181,7 +185,7 @@ Jimawal Kamis Pahing, Je Senin Legi, Dal Jumat Kliwon, Be Rabu Kliwon, Wawu Ahad
 **Ehe, Dal, Jimakir** (tahun ke-2, 5, 8). Mesin ini sebelumnya (mengikuti `weton.m`) memberi 355 hari pada **Je** dan 354 pada **Dal**, sehingga
 **seluruh tahun Dal bergeser satu hari** dari tabel Karaton, dan penyesuaian "kurup berakhir lebih cepat sehari" jatuh pada tahun yang keliru di
 ujung Aboge (AJ 1865-1866). Keduanya sudah dikoreksi. Sekarang mesin cocok dengan tabel Karaton pada **semua 1440 awal bulan Asapon
-(1936-2052) dan semua 1440 awal bulan Aboge (1819-1935)**, dan dengan 12 titik data Almanak Jawa/kalender Karaton yang dimuat tesis.
+(1936-2052) dan semua 1440 awal bulan Aboge (1819-1935)**, dan dengan 12 titik data Almanak Jawa/kalender Karaton yang dimuat tesis. Catatan: angka 1440 per kurup berasal dari 96 entri pola (8 tahun x 12 bulan) yang berulang selama 15 windu (192 entri untuk kedua kurup), bukan 2.880 observasi sejarah yang independen.
 
 - Contoh yang berubah: 1 Sura Dal 1959 = **Jumat Kliwon 27 Juni 2025** (sebelumnya 28 Juni, Sabtu Legi). Tahun Dal berikutnya: AJ 1967 (2033-2034).
   1 Sura Jimawal 1957 = Kamis Pahing 20 Juli 2023 tidak berubah.
@@ -205,7 +209,7 @@ Yogyakarta 1795). Kedua konfigurasi konsisten pada dirinya sendiri (1 Sura tahun
 adalah kecocokan dengan Karaton: (a) pada konfigurasi `weton.m`, 1 Sura Alip 1627 jatuh pada Jumat Legi dan 1747 pada Kamis Kliwon, padahal tesis menetapkan
 Kamis Kliwon (Amiswon mulai 1627) dan Rabu Wage (Aboge mulai 1747); (b) tabel Aboge Karaton cocok pada 1416 dari 1440 awal bulan, dengan 24 selisih tepat pada
 AJ 1747-1748. Konfigurasi Karaton lolos semuanya (1440 dari 1440), dan anchor 1 Sura Alip mundur satu hari dan satu pasaran tiap kurup (Jumat Legi, Kamis Kliwon,
-Rabu Wage, Selasa Pon). Maka batas kurup Karaton dipakai dan opsi `{ jogja: true }` (kurup ke-3 mulai 1795, bertentangan dengan Karaton Yogyakarta sendiri) dihapus.
+Rabu Wage, Selasa Pon). Maka batas kurup Karaton dipakai dan opsi `{ jogja: true }` dihapus. Kurup ke-3 mulai 1795 memang dilaporkan untuk sejarah Yogyakarta (Karjanto dan Beauducel 2020, Tabel 9), tetapi dokumentasi Keraton masa kini dan tesis menyebut 1747; opsi itu dicabut sebagai keputusan produk, bukan bukti bahwa varian tersebut tidak pernah dipakai (lihat `paparan_ilmiah_pawukon.md`, bab 6.1).
 Amahgi dan Amiswon tidak punya tabel Karaton untuk diuji; pola bulan di sana kini sama dengan metode windu asli (lihat bagian berikut), setelah pola bulan khusus tahun Dal milik `weton.m` di Amiswon dihapus.
 
 ### Metode tertua dan sumber pembanding
@@ -219,9 +223,9 @@ Perbandingan sumber (diukur pada awal tahun 1 Sura AJ 1555-1986, relatif terhada
 | Sumber | Metode | Hasil |
 |---|---|---|
 | skrip almanak (`kalender_jawa_sultan_agungan.py`) | windu murni, tanpa kurup, berjangkar 1 Sura 1959 = 27 Juni 2025 | persis metode tertua; selisih konstan -3, -2, -1, 0 hari per kurup; hanya tepat pada Asapon |
-| `research-system-javanese-profile` | batas kurup sama dengan Karaton; dua kurup awal memakai Ehe/Dal/Jimakir, lalu Ehe/Je/Jimakir mulai Aboge | sama persis pada AJ 1555-1626; selisih +1 hingga +2 hari pada 1627-1862 dan +-1 hari sesudahnya |
+| `research-system-javanese-profile` | batas kurup sama dengan Karaton; dua kurup awal memakai Ehe/Dal/Jimakir, lalu Ehe/Je/Jimakir mulai Aboge; tanggal modern (AJ 1867-1986) memakai tahun Hijriah tabular 30 tahun berjangkar 25 Maret 1936 | sama persis pada AJ 1555-1626; selisih +1 hingga +2 hari pada 1627-1862 dan +-1 hari sesudahnya |
 | `weton.m` | empat kurup dengan batas 1675 dan 1749; Je 355 dan Dal 354; pola bulan khusus tahun Dal Amiswon | sama persis hanya pada AJ 1555-1626 |
-| paket npm `primbon` | tipe tanpa kurup | cocok sejak 1950; error pada 1561 dari 3344 tanggal uji sebelum 1900; selisih 1-3 hari di antaranya |
+| paket npm `@damarkuncoro/primbon` 1.0.3 | tipe tanpa kurup | cocok penuh sejak 1950; selisih 1 hari pada 1900-1949; sebelum 1900 error pada 1561 dari 3344 tanggal uji dan selisih 1-3 hari pada yang lain |
 | `weton.c`, `weton.pl` | hanya weton dan wuku | tidak menghitung tanggal Jawa |
 
 Kurup tertua (Amahgi, AJ 1555-1626) disepakati semua sumber yang menghitungnya; perbedaan muncul ketika sumber menambahkan aturan yang lebih baru (Je menggantikan Dal).
@@ -301,6 +305,9 @@ Tercatat di data dan keluar pada hasil fungsi yang bersangkutan. Keganjilan ceta
 ```bash
 npm test   # Node >= 18; 170+ tes termasuk contoh hitungan kitab, uji silang antar tabel, dan 600 hari berturut-turut
 ```
+
+Dokumen pendamping: [paparan_ilmiah_pawukon.md](paparan_ilmiah_pawukon.md) (audit sumber, rekonstruksi, dan batas klaim) dan skrip reproduksinya
+`audit/audit_pawukon.py` (Python standar, `python3 audit/audit_pawukon.py`).
 
 Uji penting: `tests/golden.json` (kalender), uji silang antar tabel kitab (mis. bab 147-149, 133-135, 57/173), dan `tests/readme.test.js`
 yang memastikan setiap fungsi yang diekspor tercantum di README ini.

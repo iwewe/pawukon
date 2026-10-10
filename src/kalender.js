@@ -88,7 +88,8 @@ export const WULAN = [
   'Rejeb', 'Ruwah', 'Pasa', 'Sawal', 'Dulkangidah', 'Besar'
 ];
 export const TAUN = ['Alip', 'Ehe', 'Jimawal', 'Je', 'Dal', 'Be', 'Wawu', 'Jimakir'];
-export const WINDU = ['Adi', 'Kuntara', 'Sengara', 'Sancaya'];
+// Ejaan Karaton dan tesis Marhamah: Kuntara, Sangara, Sancaya, Adi (weton.m mengeja "Sengara").
+export const WINDU = ['Adi', 'Kuntara', 'Sangara', 'Sancaya'];
 export const LAMBANG = ['Langkir', 'Kulawu'];
 
 // Neptu (Betaljemur Adammakna, bab 2), urut seperti DINAPITU dan PASARAN di atas.
@@ -232,7 +233,8 @@ export function kalenderJawa(input) {
   const dina = dti - (kk > 0 ? kumulatif[kk - 1] : 0);
   const tahun = taunAj + AJ - 1;
 
-  const putaranWindu = Math.floor(dti / (81 * 7 * 5));
+  // Windu = blok 8 tahun Jawa (bukan blok 2835 hari: koreksi kurup memendekkan kalender, sehingga blok hari melenceng 1-3 hari dari batas tahun).
+  const putaranWindu = Math.floor((tahun - AJ) / 8);
   const kft = kurup.map(k => k[2]);
   let kurupIdx;
   if (tahun < kft[kft.length - 1] + 120) {

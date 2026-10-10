@@ -3,11 +3,12 @@
 
 **Tanggal audit:** 11 Oktober 2026  
 **Objek utama:** `iwewe/pawukon`, commit `7a74fbd720988c2f4ebaf1b8911d9b8eade27bbe`  
-**Status:** Paparan ilmiah berbasis audit sumber dan rekonstruksi komputasional; bukan artikel yang telah melalui penelaahan sejawat.
+**Status:** Paparan ilmiah berbasis audit sumber dan rekonstruksi komputasional; bukan artikel yang telah melalui penelaahan sejawat.  
+**Revisi:** 11 Oktober 2026. Seluruh angka dan kutipan sumber diperiksa ulang (bagian 2.1). Temuan pada bab 8 telah diperbaiki di kode. Skrip audit kini tersedia di `audit/audit_pawukon.py`. Bagian lain tidak diubah kecuali dinyatakan.
 
 ## Abstrak
 
-Digitalisasi primbon Jawa tidak cukup dipahami sebagai pemindahan rumus tradisional ke bahasa pemrograman. Perbedaan keluaran dapat berasal dari pemilihan sistem kalender, batas kurup, penempatan tahun panjang, konvensi pergantian hari, metode petungan, maupun pembacaan edisi teks. Kajian ini menelaah repositori `pawukon` yang menggabungkan kalender aritmetika Sultan Agungan dengan petungan dari Betaljemur Adammakna, membandingkannya dengan implementasi MATLAB, Python, dan C, serta memeriksa literatur etnoaritmetika, tesis ilmu falak, dan dokumentasi Keraton Yogyakarta. Rekonstruksi independen menunjukkan bahwa pergeseran satu hari pada tahun Dal dapat dijelaskan oleh perbedaan penempatan hari tambahan antara tahun Je dan Dal. Dokumentasi peristiwa Keraton tahun Dal 1959 memberikan dukungan eksternal bagi model yang dipilih repositori. Namun, kesesuaian terhadap tabel normatif tidak dengan sendirinya menyelesaikan perbedaan sejarah kalender. Audit juga menemukan ketidaksinkronan label windu dan lambang pada sebagian tanggal batas. Kontribusi ilmiah proyek terletak pada formalisasi aturan dan ketertelusuran bukti, bukan pembuktian daya ramal primbon.
+Digitalisasi primbon Jawa tidak cukup dipahami sebagai pemindahan rumus tradisional ke bahasa pemrograman. Perbedaan keluaran dapat berasal dari pemilihan sistem kalender, batas kurup, penempatan tahun panjang, konvensi pergantian hari, metode petungan, maupun pembacaan edisi teks. Kajian ini menelaah repositori `pawukon` yang menggabungkan kalender aritmetika Sultan Agungan dengan petungan dari Betaljemur Adammakna, membandingkannya dengan implementasi MATLAB, Python, dan C, serta memeriksa literatur etnoaritmetika, tesis ilmu falak, dan dokumentasi Keraton Yogyakarta. Rekonstruksi independen menunjukkan bahwa pergeseran satu hari pada tahun Dal dapat dijelaskan oleh perbedaan penempatan hari tambahan antara tahun Je dan Dal. Dokumentasi peristiwa Keraton tahun Dal 1959 memberikan dukungan eksternal bagi model yang dipilih repositori. Namun, kesesuaian terhadap tabel normatif tidak dengan sendirinya menyelesaikan perbedaan sejarah kalender. Audit juga menemukan ketidaksinkronan label windu dan lambang pada 53 dari 153.086 tanggal; label itu diwarisi dari definisi windu berbasis blok 2.835 hari pada `weton.m` dan telah diperbaiki di pawukon. Kontribusi ilmiah proyek terletak pada formalisasi aturan dan ketertelusuran bukti, bukan pembuktian daya ramal primbon.
 
 **Kata kunci:** kalender Jawa; Sultan Agungan; Betaljemur Adammakna; petungan; kurup; etnoaritmetika; humaniora digital; reproduksibilitas.
 
@@ -27,9 +28,23 @@ Bahan utama adalah README, NOTICE, mesin kalender, fungsi tafsir dasar, tabel ne
 
 Pemeriksaan pustaka mencakup Karjanto dan Beauducel (2020), tesis Marhamah (2022), uraian resmi kalender Keraton, dan beberapa catatan peristiwa bertanggal ganda. Bab 15, 16, dan 104 dari transkripsi edisi Jawa Betaljemur diperiksa sebagai pembanding terarah. Buku Rintaiswara (2015) ditelusuri melalui kutipan tesis dan bibliografi Keraton; eksemplar lengkapnya tidak diperiksa langsung. [R3-R5, R10-R15]
 
-Aturan yang terbaca kemudian direkonstruksi dalam skrip Python mandiri, `audit_pawukon.py`. Skrip tersebut menghitung awal tahun, membandingkan beberapa model, dan menguji konsistensi label windu terhadap blok delapan tahun Jawa. **Ini bukan eksekusi `npm test` repositori asli, bukan eksekusi MATLAB asli, dan bukan verifikasi ulang seluruh 337 bab.** Angka hasil pengujian yang berasal dari README dibedakan dari hasil rekonstruksi audit ini.
+Aturan yang terbaca kemudian direkonstruksi dalam skrip Python mandiri, `audit/audit_pawukon.py` (tersedia di repositori). Skrip tersebut menghitung awal tahun, membandingkan beberapa model, dan menguji konsistensi label windu terhadap blok delapan tahun Jawa. **Ini bukan eksekusi `npm test` repositori asli, bukan eksekusi MATLAB asli, dan bukan verifikasi ulang seluruh 337 bab.** Angka hasil pengujian yang berasal dari README dibedakan dari hasil rekonstruksi audit ini.
 
 Citra tabel tesis belum berhasil diperiksa ulang dalam sesi ini; pembacaan tesis menggunakan teks PDF yang tersedia. Sebaliknya, Tabel 6, 8, dan 9 artikel Karjanto-Beauducel diperiksa pada citra halaman. Penanda `verifikasi: 'scan'` dalam data pawukon diperlakukan sebagai catatan verifikasi pengembang, bukan sebagai klaim bahwa audit ini telah memeriksa semua scan yang sama.
+
+### 2.1 Pemeriksaan ulang pada revisi ini
+
+Pada revisi ini setiap angka dan kutipan yang dapat diperiksa dicocokkan ulang dengan sumbernya. Hasilnya:
+
+- **Rumus bab 3.1** (hari, pasaran, wuku dari epoch) cocok dengan mesin pada 4.286 hari (tiap tujuh hari selama 30.000 hari), 0 selisih.
+- **Rumus bab 3.2** (awal tahun) cocok dengan mesin pada seluruh 432 awal tahun AJ 1555-1986, dan dengan penjumlahan panjang tahun satu per satu pada skrip audit, 0 selisih.
+- **Tabel 5.1** direproduksi. Rekonstruksi aturan pada skrip audit dibandingkan dengan keluaran program aslinya (kode rsjp dan kode almanak dijalankan; port Python `weton.m` dijalankan): 0 selisih pada AJ 1867-1986 untuk ketiganya. rsjp berbeda dari pawukon pada 32 dari 120 awal tahun, `weton.m` pada 15 (semuanya tahun Dal), almanak pada 0.
+- **Windu:** 53 dari 153.086 hari berlabel berbeda pada rumus lama, dan kedua contoh tanggal pada bab 8 benar.
+- **Keraton:** tiga halaman peristiwa tahun Dal 1959 dan halaman Mubeng Beteng diambil pada 11 Oktober 2026; teksnya memuat tanggal-tanggal yang dikutip (4 Sura, 29 Rejeb, 29 Besar Dal 1959; Rabu 19 Juli 2023; Sugengan sekitar pukul 11.00 WIB).
+- **Karjanto dan Beauducel:** teks PDF arXiv memuat Tabel 6, 8 (Amiswon Alip 1675, Aboge Jimawal 1749, 118 tahun), dan 9 (Aboge Yogyakarta Alip 1795-1866, 72 tahun).
+- **Identitas:** hash snapshot `weton` (`98383d0`) dan rsjp (`081bcd0`) sama dengan HEAD saat ini; semua URL referensi dapat diakses.
+
+Batas pemeriksaan tetap berlaku: citra tabel tesis tidak dibuka, MATLAB asli tidak dijalankan, dan Rintaiswara (2015) tidak dibaca langsung.
 
 ## 3. Struktur matematis perhitungan
 
@@ -45,7 +60,7 @@ indeks_pasaran = d mod 5
 indeks_wuku    = floor(((d + 194) mod 210) / 7)
 ```
 
-Urutan wuku dimulai dari Sinta. Konstanta 194 menyatakan posisi epoch dalam putaran pawukon. Repositori memakai rotasi indeks pasaran yang berbeda, tetapi menghasilkan nama yang sama. Pengubahan asal indeks tidak mengubah metode selama konstanta dan urutan nama disesuaikan bersama. [R1, R7]
+Urutan wuku dimulai dari Sinta. Konstanta 194 menyatakan posisi epoch dalam putaran pawukon. Repositori memakai rotasi indeks pasaran yang berbeda, tetapi menghasilkan nama yang sama. Pengubahan asal indeks tidak mengubah metode selama konstanta dan urutan nama disesuaikan bersama. Ketiga rumus di atas diuji pada 4.286 hari dan cocok dengan keluaran mesin pada semuanya. [R1, R7]
 
 Secara matematis, pertemuan siklus tujuh dan lima hari berulang setiap `KPK(7,5) = 35` hari. Sementara itu, satu putaran pawukon berumur `30 x 7 = 210` hari. Inilah alasan weton dapat sama sementara wukunya berbeda.
 
@@ -61,7 +76,7 @@ Model yang dipilih pawukon menggunakan urutan Alip, Ehe, Jimawal, Je, Dal, Be, W
 
 Tahun panjangnya adalah Ehe, Dal, dan Jimakir. Bulan berselang-seling 30 dan 29 hari; Besar berumur 30 hari pada tahun panjang, kecuali penyesuaian akhir kurup yang diimplementasikan. Ini sesuai pola yang dijelaskan sumber Keraton dan dijadikan acuan repositori. [R1, R3, R10]
 
-Satu windu dasar mempunyai `5 x 354 + 3 x 355 = 2.835` hari. Lima belas windu mempunyai 42.525 hari; pemendekan satu hari menghasilkan 42.524 hari. Angka ini merupakan sifat model aritmetika, bukan pernyataan bahwa setiap awal bulan identik dengan observasi hilal.
+Satu windu dasar mempunyai `5 x 354 + 3 x 355 = 2.835` hari. Lima belas windu mempunyai 42.525 hari; pemendekan satu hari menghasilkan 42.524 hari. Kurup pertama hanya 72 tahun (sembilan windu) sehingga berumur 25.514 hari. Angka-angka ini merupakan sifat model aritmetika, bukan pernyataan bahwa setiap awal bulan identik dengan observasi hilal.
 
 Dalam rentang implementasinya, pawukon menggunakan batas awal kurup AJ 1555, 1627, 1747, dan 1867. AJ berarti Anno Javanico atau tahun Jawa dalam penomoran yang dipakai model. Awal kalendernya adalah 1 Sura Alip 1555, dipadankan dengan 8 Juli 1633. [R1, R3]
 
@@ -75,7 +90,7 @@ c(y) = banyaknya batas 1627, 1747, 1867 yang telah dicapai
 awal_tahun(y) = epoch + 2835*q + B[r] - c(y) hari
 ```
 
-Tanggal dalam bulan diperoleh dengan mengurangi akumulasi panjang bulan sampai ditemukan bulan yang menaungi hari tersebut. Dalam lampiran, formula ringkas ini diperiksa terhadap implementasi kedua yang menambahkan panjang tahun satu per satu.
+Tanggal dalam bulan diperoleh dengan mengurangi akumulasi panjang bulan sampai ditemukan bulan yang menaungi hari tersebut. Formula ringkas ini cocok dengan mesin JavaScript pada seluruh 432 awal tahun AJ 1555-1986 dan dengan implementasi kedua yang menambahkan panjang tahun satu per satu (`audit/audit_pawukon.py`).
 
 ### 3.3 Petungan: bukan satu rumus neptu universal
 
@@ -98,16 +113,17 @@ Bab 104 memberikan contoh penting tentang spesifikasi lokal. Bobotnya bukan nept
 | Implementasi | Aturan yang diperiksa | Implikasi |
 |---|---|---|
 | pawukon, JavaScript | Windu Ehe-Dal-Jimakir; koreksi kurup pada batas yang dipilih dari rujukan Yogyakarta | Model normatif yang dinyatakan secara eksplisit |
-| weton.m, MATLAB | Pola tahun dan bulan Dal berbeda menurut kurup; pada kurup lanjut Je panjang dan Dal pendek | Dapat menggeser tanggal Jawa setahun Dal tanpa mengubah siklus hari-pasaran |
-| research-system-javanese-profile, Python | Cabang modern memakai jangkar 25 Maret 1936 dan tahun kabisat Hijriah tabular 30 tahun | Bukan sekadar port model windu delapan tahun |
+| weton.m, MATLAB | Pola tahun dan bulan Dal berbeda menurut kurup; pada kurup lanjut Je panjang dan Dal pendek. Windu dan lambang dihitung dari blok 2.835 hari sejak epoch (`floor(dti/(81*7*5))`), bukan dari blok delapan tahun | Dapat menggeser tanggal Jawa setahun Dal tanpa mengubah siklus hari-pasaran; label windu bergeser satu sampai tiga hari pada batas windu |
+| research-system-javanese-profile, Python | Cabang modern memakai jangkar 25 Maret 1936 (tahun jangkar dipaksa 354 hari) dan tahun kabisat Hijriah tabular 30 tahun (posisi `(H-1) mod 30 + 1`) | Bukan sekadar port model windu delapan tahun |
 | almanak, Python | Windu dasar dengan jangkar 1 Sura 1959 = 27 Juni 2025; tanpa koreksi kurup dalam konverter yang diperiksa | Cocok pada fase modern tertentu, tidak identik untuk seluruh sejarah |
+| `@damarkuncoro/primbon` 1.0.3, JavaScript | Pola windu tanpa koreksi kurup; menghasilkan galat pada sekitar separuh tanggal sebelum 1900 | Cocok penuh sejak 1950; selisih satu hari pada 1900-1949 dan satu sampai tiga hari sebelum 1900 (sejalan dengan jumlah kurup yang tidak dikoreksi) |
 | weton.c, C | Kongruensi hari dan pasaran | Tidak menghitung tanggal Jawa lengkap atau wuku dalam file yang diperiksa |
 
 Sumber tabel: pembacaan kode [R1, R6-R8]. Perbedaan bahasa pemrograman bukan penyebab utama perbedaan kalender. Yang menentukan adalah spesifikasi, epoch, cabang program, dan pengecualian.
 
 Temuan penting pada pembanding Python ialah perbedaan antara tabel deklaratif dan jalur eksekusi. Tabel kurupnya memang mencantumkan tahun panjang Jawa. Namun, untuk tanggal modern, `_year_cycle_from_asapon_anchor()` memanggil `_asapon_anchor_year_length()`, yang memakai pola kabisat Hijriah 30 tahun. Membandingkan tabel konfigurasi tanpa menelusuri pemanggilan fungsi akan menghasilkan penjelasan yang tidak lengkap. [R7]
 
-Paket npm bernama `primbon` juga disebut README pawukon, tetapi identitas pemilik dan versi paketnya belum cukup jelas untuk reproduksi audit ini. Angka kesalahannya dalam README tidak dijadikan hasil uji mandiri. Paket dengan nama mirip atau namespace berbeda tidak otomatis merupakan pembanding yang sama. [R1]
+Paket npm yang disebut README pawukon sebagai `primbon` teridentifikasi sebagai `@damarkuncoro/primbon` versi 1.0.3 (penulis Damar Kuncoro; repositori `github.com/damarkuncoro/primbon`, HEAD `d88dd7c` pada salinan yang diperiksa). Paket dengan nama mirip atau namespace berbeda bukan pembanding yang sama. Pada 3.344 tanggal uji pawukon (1633-2052), paket ini menghasilkan galat eksekusi (`Pasaran tidak boleh kosong`) pada 1.561 tanggal, semuanya sebelum 1900; dari 365 tanggal sebelum 1900 yang tidak galat, seluruhnya berselisih satu sampai tiga hari dari pawukon; pada 1900-1949 tanggalnya berselisih satu hari pada 266 dari 357 tanggal (sisanya, sesudah 1936, cocok); dan sejak 1950 cocok pada seluruh 1.061 tanggal. Pola selisih tiga, dua, satu, lalu nol hari menurut era sejalan dengan model tanpa koreksi kurup yang berjangkar modern. Pengukuran ini berasal dari menjalankan paket tersebut pada sampel yang sama dengan README, tetapi skripnya tidak disertakan karena memerlukan paket pihak ketiga.
 
 ## 5. Hasil rekonstruksi dan bukti eksternal
 
@@ -124,7 +140,7 @@ Tabel berikut adalah **hasil rekonstruksi independen aturan yang dibaca**, bukan
 | Dal 1959 | 27-06-2025 | 28-06-2025 | 27-06-2025 | 27-06-2025 |
 | Be 1960 | 17-06-2026 | 17-06-2026 | 17-06-2026 | 17-06-2026 |
 
-Hasil lengkap dan skrip pembentuknya disediakan dalam lampiran. Model rsjp berbeda pada 32 dari 120 awal tahun Asapon yang dibandingkan. Model almanak berjangkar modern sama pada seluruh 120 awal tahun tersebut, tetapi tidak sama ketika dibawa mundur melampaui koreksi kurup. Ini bukan pemeringkatan akurasi universal: masing-masing menghasilkan tanggal menurut spesifikasi berbeda.
+Hasil lengkap dan skrip pembentuknya disediakan dalam lampiran (`audit/audit_pawukon.py`). Model rsjp berbeda pada 32 dari 120 awal tahun Asapon yang dibandingkan, dan model `weton.m` pada 15 (semuanya tahun Dal). Model almanak berjangkar modern sama pada seluruh 120 awal tahun tersebut, tetapi tidak sama ketika dibawa mundur melampaui koreksi kurup: selisihnya tetap -3 hari pada AJ 1556-1626, -2 pada 1627-1746, dan -1 pada 1747-1866, yaitu jumlah kurup yang tidak dikoreksi. Hal ini sekaligus menunjukkan bahwa pola windu murni pada model almanak identik dengan pola pawukon; yang berbeda hanyalah koreksi kurup. Ini bukan pemeringkatan akurasi universal: masing-masing menghasilkan tanggal menurut spesifikasi berbeda.
 
 Kasus Dal dapat dijelaskan tanpa spekulasi. Bila Je berumur 355 hari, awal Dal datang sehari lebih lambat daripada model Je 354 hari. Setelah Dal selesai, kedua model dapat bertemu kembali karena `355 + 354 = 354 + 355`. Kesamaan hasil pada tahun Be karena itu tidak membuktikan bahwa kedua model selalu sama.
 
@@ -138,17 +154,17 @@ README menyatakan bahwa dua belas titik almanak yang digunakannya tidak mencakup
 | 18 Januari 2026 | 29 Rejeb Dal 1959 | Sesuai |
 | 15 Juni 2026 | 29 Besar Dal 1959 | Sesuai |
 
-Sumber: artikel Srimpi Merak Kesimpir [R13], Tingalan Jumenengan Dalem [R14], dan Uyon-Uyon 15 Juni 2026 [R15].
+Sumber: artikel Srimpi Merak Kesimpir [R13], Tingalan Jumenengan Dalem [R14], dan Uyon-Uyon 15 Juni 2026 [R15]. Ketiga halaman diambil ulang pada 11 Oktober 2026 dan teksnya memuat penanggalan tersebut.
 
 Titik 18 Januari 2026 sangat berguna: artikel menyebut upacara Sugengan berlangsung sekitar pukul 11.00 WIB. Dengan demikian, kecocokan 29 Rejeb tidak bergantung pada penafsiran acara setelah maghrib. Pola Dal yang mulai sehari lebih lambat akan menghasilkan 28 Rejeb pada tanggal sipil tersebut. [R14; perhitungan audit]
 
-Bukti ini memperkuat pilihan model untuk tahun Dal yang diuji. Namun, tiga dokumentasi peristiwa tidak sama dengan pemeriksaan seluruh halaman almanak, tidak menghapus kemungkinan salah tulis artikel, dan tidak membuktikan seluruh rekonstruksi sebelum abad ke-20.
+Dukungan normatif independen datang dari uraian resmi Keraton sendiri [R10], yang menyatakan bahwa tahun Ehe, Dal, dan Jimakir berumur 355 hari (Taun Wuntu), bulan Besar berumur 30 hari pada tahun tersebut, tiap lambang berumur 8 tahun, serta menyebut batas kurup Amahgi 1555-1627, Amiswon 1627-1747, dan Aboge dari 1747. Bukti ini memperkuat pilihan model untuk tahun Dal yang diuji. Namun, tiga dokumentasi peristiwa tidak sama dengan pemeriksaan seluruh halaman almanak, tidak menghapus kemungkinan salah tulis artikel, dan tidak membuktikan seluruh rekonstruksi sebelum abad ke-20.
 
 ## 6. Mengapa hasil dapat berbeda?
 
 ### 6.1 Kalender normatif dan kalender historis menjawab pertanyaan berbeda
 
-Pawukon memilih batas kurup 1627 dan 1747. Sebaliknya, Tabel 8 artikel Karjanto-Beauducel memakai awal Amiswon 1675 dan Aboge 1749; Tabel 9 membahas awal Aboge Yogyakarta pada 1795. Artikel menghubungkan perbedaan itu dengan sejarah penerapan koreksi oleh otoritas yang berbeda. [R1, R5]
+Pawukon memilih batas kurup 1627 dan 1747, sama dengan uraian resmi Keraton [R10] dan tesis Marhamah [R3]. Sebaliknya, Tabel 8 artikel Karjanto-Beauducel memakai awal Amiswon 1675 dan Aboge 1749; Tabel 9 melaporkan awal Aboge Yogyakarta pada 1795 (selama 72 tahun). Dengan demikian perbedaan itu bukan antara pawukon dan Keraton, melainkan antara dokumentasi Keraton masa kini dan rekonstruksi historis dalam artikel. Artikel menghubungkan perbedaan itu dengan sejarah penerapan koreksi oleh otoritas yang berbeda. [R1, R5]
 
 Karena itu, kecocokan dengan tabel normatif Yogyakarta tidak cukup untuk menyatakan semua konfigurasi lain keliru secara sejarah. Klaim yang dapat dipertahankan ialah: "implementasi ini mengikuti rekonstruksi aritmetika Yogyakarta berdasarkan acuan yang dipilih." Klaim "seluruh perbedaan historis telah terselesaikan" membutuhkan penelitian arsip tambahan.
 
@@ -180,7 +196,7 @@ Perbedaan antarmetode tidak harus diselesaikan melalui pemungutan suara. Tiga me
 
 Pengujian pawukon mencakup pencocokan awal bulan terhadap tabel Keraton, pemeriksaan pola panjang tahun, jangkar kurup, serta kesesuaian dengan implementasi windu dasar yang digeser sesuai koreksi. README juga melaporkan pembandingan 3.344 tanggal dengan port Python. Infrastruktur pengujian tersebut berguna untuk menahan regresi dan memperjelas asumsi. [R1]
 
-Namun, klaim 1.440 awal bulan Aboge ditambah 1.440 Asapon harus dibaca secara tepat. Data acuannya berisi delapan tipe tahun kali dua belas bulan untuk masing-masing kurup: **192 entri pola**, yang berulang selama lima belas windu menjadi **2.880 pemeriksaan**. Angka 2.880 bukan jumlah 2.880 observasi sejarah yang independen. [R1: `tests/data-kraton.js`, `tests/kraton.test.js`; penghitungan struktur data]
+Namun, klaim 1.440 awal bulan Aboge ditambah 1.440 Asapon harus dibaca secara tepat. Data acuannya berisi delapan tipe tahun kali dua belas bulan untuk masing-masing kurup: **192 entri pola**, yang berulang selama lima belas windu menjadi **2.880 pemeriksaan**. Angka 2.880 bukan jumlah 2.880 observasi sejarah yang independen. README kini menuliskannya sebagai 192 entri pola yang berulang selama lima belas windu. [R1: `tests/data-kraton.js`, `tests/kraton.test.js`; penghitungan struktur data]
 
 Kecocokan JavaScript dengan port Python terutama memperkuat kesetaraan implementasi. Jika keduanya diturunkan dari pola dan koreksi yang sama, kesalahan sumber bersama tetap dapat lolos. Oleh sebab itu perlu dibedakan:
 
@@ -190,9 +206,9 @@ Kecocokan JavaScript dengan port Python terutama memperkuat kesetaraan implement
 
 Ketiga jenis bukti saling melengkapi. Tidak satu pun dari ketiganya, dengan sendirinya, merupakan pengujian daya ramal watak, rezeki, kesehatan, atau jodoh.
 
-## 8. Temuan tambahan: label windu dan lambang belum selalu mengikuti batas tahun
+## 8. Temuan tambahan: label windu dan lambang belum selalu mengikuti batas tahun (telah diperbaiki)
 
-Audit menemukan masalah yang berbeda dari perselisihan sumber. Pada `src/kalender.js`, pergantian label windu diturunkan dari:
+Audit menemukan masalah yang berbeda dari perselisihan sumber. Pada `src/kalender.js` (commit yang diaudit), pergantian label windu diturunkan dari:
 
 ```js
 const putaranWindu = Math.floor(dti / (81 * 7 * 5));
@@ -200,29 +216,33 @@ const putaranWindu = Math.floor(dti / (81 * 7 * 5));
 
 `dti` merupakan jumlah hari sejak epoch ditambah satu, sedangkan `81 * 7 * 5 = 2835`. Sementara tanggal dan tahun sudah mendapat koreksi kurup, penghitung label ini tetap menggunakan blok hari tetap. [R1]
 
-Jika windu didefinisikan sebagai delapan tahun Jawa, label perlu mengikuti blok tahun, bukan akumulasi hari yang belum menyesuaikan pemendekan kurup. Sumber Keraton dan tesis juga menempatkan awal kalender dalam Kuntara-Kulawu, dengan urutan Kuntara, Sangara, Sancaya, Adi. [R3, R10]
+**Asal rumus.** Rumus itu bukan galat port. `weton.m` sendiri menetapkan "Windu and Lambang = 8-taun cycle = 81-wetonan = 2835-day" dan menghitung `windu_index = mod(floor(dti/(81*7*5)) + 1, 4) + 1`; contoh yang diterbitkan di `weton.md` untuk 10 Agustus 2021 mencetak "1 Sura 1955 AJ Alip Sêngara Langkir". Jadi rumus lama setia pada upstream. Yang tidak dimodelkan upstream adalah bahwa koreksi kurup memendekkan kalender sehingga blok 2.835 hari menyimpang satu sampai tiga hari dari batas tahun. [R6]
 
-Rekonstruksi menghasilkan contoh berikut. Pada **10 dan 11 Agustus 2021**, tanggalnya sudah **1 dan 2 Sura Alip 1955**, tetapi rumus label masih menghasilkan **Sengara-Langkir**. Label **Sancaya-Kulawu** baru muncul pada 12 Agustus, yaitu 3 Sura. Dengan definisi windu delapan tahun, ketiga tanggal itu seharusnya sudah berada dalam windu yang sama.
+**Definisi yang dipakai.** Windu didefinisikan sebagai delapan tahun Jawa, dengan awal windu pada tahun Alip. Ini sesuai tesis Marhamah (Tabel 1 dan 3) [R3], uraian Keraton yang menyatakan "masing-masing lambang berumur 8 tahun" [R10], dan rsjp, yang menempatkan Dal 1959 sebagai tahun kelima windu Sancaya [R7]. Urutan Kuntara, Sangara, Sancaya, Adi menurut Keraton dan tesis; ejaan Sangara dipakai menggantikan Sengara dari `weton.m`.
+
+Rekonstruksi menghasilkan contoh berikut. Pada **10 dan 11 Agustus 2021**, tanggalnya sudah **1 dan 2 Sura Alip 1955**, tetapi rumus label masih menghasilkan **Sangara-Langkir** (dieja Sengara pada versi lama). Label **Sancaya-Kulawu** baru muncul pada 12 Agustus, yaitu 3 Sura. Dengan definisi windu delapan tahun, ketiga tanggal itu seharusnya sudah berada dalam windu yang sama.
 
 Pada batas awal juga ada kasus sehari terlalu cepat: 11 April 1641 masih 30 Besar Jimakir 1562, tetapi label sudah berpindah ke windu berikutnya. Penyebabnya adalah penghitungan hari satu-indeks yang dibagi langsung dengan 2.835.
 
-Dalam pemeriksaan 153.086 tanggal dari 8 Juli 1633 sampai 25 Agustus 2052, ditemukan **53 tanggal** yang label windunya berbeda antara rumus hari pada kode dan pengelompokan delapan tahun Jawa. Angka ini merupakan hasil skrip audit mandiri, bukan hasil suite asli repositori.
+Dalam pemeriksaan 153.086 tanggal dari 8 Juli 1633 sampai 25 Agustus 2052, ditemukan **53 tanggal** yang label windunya berbeda antara rumus hari pada kode dan pengelompokan delapan tahun Jawa. Angka ini direproduksi oleh `audit/audit_pawukon.py` (bukan hasil suite asli repositori) dan diperiksa ulang pada revisi ini.
 
-Kandidat perbaikannya, dengan mempertahankan pengindeksan array yang ada, ialah:
+**Perbaikan (diterapkan).** Pada kode, label diturunkan dari tahun:
 
 ```js
 const putaranWindu = Math.floor((tahun - AJ) / 8);
 ```
 
-Perubahan ini harus disertai uji batas sebelum dan sesudah 1 Sura Alip, terutama di sekitar pergantian kurup. Temuan tersebut tidak membatalkan hasil weton atau koreksi tanggal Dal; ia memperlihatkan bahwa label yang berbeda memerlukan pengujian tersendiri.
+disertai uji pada seluruh 153.086 hari (label sama dengan blok delapan tahun Jawa), pada contoh 10-12 Agustus 2021, dan pada batas 1641. Port Python yang dikoreksi dan mesin JavaScript tetap sepakat pada 3.344 tanggal, dan baris golden yang terdampak (satu baris) diperbarui. Akibatnya pawukon sengaja berbeda dari keluaran terbitan `weton.md` pada 53 hari, dan tes contoh terbit memuat satu penyimpangan yang dinyatakan secara eksplisit. Temuan ini tidak membatalkan hasil weton atau koreksi tanggal Dal; ia memperlihatkan bahwa label yang berbeda memerlukan pengujian tersendiri.
 
 ## 9. Arah penyempurnaan sebagai karya ilmiah
+
+**Status rekomendasi pada revisi ini.** Telah dilaksanakan: skrip audit disertakan di repositori; identitas paket npm dan commit pembanding almanak dibekukan (bagian referensi); label windu diperbaiki dan diuji; klaim 2.880 pemeriksaan dinyatakan sebagai 192 entri pola; ejaan windu mengikuti Keraton. Masih terbuka: metadata edisi Indonesia yang dipakai, pemisahan catatan ilmiah per metode, tanggal diskriminatif tambahan (Jimawal dan tahun Dal lain), dan pemeriksaan citra tesis serta Rintaiswara (2015).
 
 **Lengkapi identitas baseline.** Sebutan "Betaljemur Adammakna, terjemahan Indonesia modern" belum cukup untuk penelitian yang menelusuri perbedaan bacaan. Catat penyusun, penerjemah, tahun, penerbit, nomor cetakan, serta identitas scan. Simpan nomor halaman cetak terpisah dari indeks halaman PDF. Edisi pembanding Jawa 2018 tidak boleh menggantikan metadata edisi Indonesia yang sebenarnya digunakan. [R1, R11]
 
 **Pisahkan asal aturan dari interpretasi.** Setiap metode sebaiknya menyertakan identitas bab, tabel bobot, operasi, pembagi, konvensi sisa, status emendasi, dan versi parafrasa. Istilah seperti `asumsi` dan `anomali` yang sudah ada dapat dikembangkan menjadi catatan ilmiah yang lebih terstruktur. [R1; rekomendasi audit]
 
-**Bekukan pembanding.** Catat pemilik, versi paket, commit, dan jalur eksekusi setiap program. Khusus rsjp, tuliskan bahwa tanggal modern memakai tahun Hijriah tabular. Untuk npm primbon, identitas paket harus dilengkapi sebelum angka perbandingannya dipublikasikan sebagai temuan yang dapat direplikasi.
+**Bekukan pembanding.** Catat pemilik, versi paket, commit, dan jalur eksekusi setiap program. Khusus rsjp, tuliskan bahwa tanggal modern memakai tahun Hijriah tabular (README pawukon kini mencatatnya). Untuk npm primbon, identitas paket kini dilengkapi (`@damarkuncoro/primbon` 1.0.3); skrip pengukurnya masih perlu disimpan bila angkanya hendak dipublikasikan sebagai temuan yang dapat direplikasi.
 
 **Tambahkan bukti diskriminatif.** Pilih tanggal yang membuat dua model menghasilkan jawaban berbeda, bukan hanya tanggal yang sudah pasti cocok. Dokumentasi 29 Rejeb Dal 1959 merupakan contoh yang berguna. Tambahkan tahun Jimawal, tahun Dal lain, batas kurup, dan kasus sebelum/sesudah maghrib. Pisahkan hasil uji tanggal dari hasil uji tafsir.
 
@@ -240,7 +260,7 @@ Rumusan kontribusi yang paling dapat dipertanggungjawabkan adalah: **pawukon men
 
 ### A. Sumber dan pembanding yang tercatat dalam repositori
 
-**[R1] iwewe. (2026). _pawukon_.** Snapshot commit `7a74fbd720988c2f4ebaf1b8911d9b8eade27bbe`. Berkas utama yang diperiksa: README, NOTICE, `src/kalender.js`, `src/tafsir.js`, `src/data/neptu.js`, `tests/kraton.test.js`, dan `tests/data-kraton.js`. Alamat: `https://github.com/iwewe/pawukon`.
+**[R1] iwewe. (2026). _pawukon_.** Snapshot commit yang diaudit `7a74fbd720988c2f4ebaf1b8911d9b8eade27bbe`; perbaikan sesudah audit tercatat pada riwayat git berikutnya. Berkas utama yang diperiksa: README, NOTICE, `src/kalender.js`, `src/tafsir.js`, `src/data/neptu.js`, `tests/kraton.test.js`, dan `tests/data-kraton.js`. Alamat: `https://github.com/iwewe/pawukon`.
 
 **[R2] _Kitab Primbon Betaljemur Adammakna_. Edisi terjemahan Indonesia modern yang digunakan pawukon.** Identitas penerjemah, tahun, penerbit, nomor cetakan, serta scan belum teridentifikasi lengkap dalam dokumentasi yang diperiksa. Ini adalah baseline yang dinyatakan pengembang; tidak diisi dengan metadata edisi lain.
 
@@ -254,9 +274,9 @@ Rumusan kontribusi yang paling dapat dipertanggungjawabkan adalah: **pawukon men
 
 **[R7] bendahara-selokarto. (2026). _research-system-javanese-profile_.** Snapshot `081bcd088e900a6202b9874998d7724ec78a8886`; berkas `src/research_system/utils/javanese_calendar.py` dan catatan analisis windu. Alamat: `https://github.com/bendahara-selokarto/research-system-javanese-profile`.
 
-**[R8] MasArMuttaqi. _almanak_.** Berkas `kalender_jawa_sultan_agungan.py`, diakses 11 Oktober 2026. Commit pembanding ini belum dibekukan dalam audit; aturan yang dibaca disertakan dalam rekonstruksi. Alamat: `https://github.com/MasArMuttaqi/almanak`.
+**[R8] MasArMuttaqi. _almanak_.** Berkas `kalender_jawa_sultan_agungan.py`, diakses 11 Oktober 2026. Commit yang dibekukan: `c2c93887b55f5b04ad5cdc5d13dc02bb4b3110d9` (sama dengan HEAD saat itu dan dengan salinan yang dijalankan); aturan yang dibaca disertakan dalam rekonstruksi. Alamat: `https://github.com/MasArMuttaqi/almanak`.
 
-**[R9] Paket npm `primbon`.** Tercatat sebagai pembanding dalam README [R1]. Identitas pemilik dan versi belum terverifikasi untuk audit mandiri. Entri ini adalah inventaris sumber yang belum lengkap, bukan referensi perangkat lunak yang sudah dapat direplikasi.
+**[R9] Kuncoro, Damar. _@damarkuncoro/primbon_, versi 1.0.3 (paket npm).** Tercatat sebagai `primbon` dalam README [R1]. Repositori: `https://github.com/damarkuncoro/primbon` (HEAD `d88dd7c242223b482c958ec699a6fbaf93148824` pada salinan yang diperiksa). Dijalankan pada sampel tanggal yang sama dengan README; skrip pengukur belum disertakan.
 
 ### B. Sumber tambahan untuk pemeriksaan silang
 
@@ -274,10 +294,10 @@ Rumusan kontribusi yang paling dapat dipertanggungjawabkan adalah: **pawukon men
 
 ## Lampiran reproduksi
 
-Berkas `audit_pawukon.py` tidak memerlukan paket pihak ketiga atau koneksi internet. Jalankan:
+Berkas `audit/audit_pawukon.py` tidak memerlukan paket pihak ketiga atau koneksi internet. Jalankan:
 
 ```bash
-python audit_pawukon.py hasil_audit.json
+python3 audit/audit_pawukon.py hasil_audit.json
 ```
 
-Hasil JSON mencakup perbandingan awal tahun, contoh batas windu, tanggal peristiwa untuk pemeriksaan silang, dan jumlah perbedaan. Untuk menghindari kesan kepastian berlebihan, nama kolom secara eksplisit menyebut rekonstruksi rumus. Validasi berikutnya yang paling bernilai adalah menjalankan kasus yang sama pada checkout upstream asli dan mencocokkannya dengan eksemplar kalender serta kitab yang identitasnya dibekukan.
+Hasil JSON mencakup perbandingan awal tahun (pawukon, `weton.m`, almanak, rsjp modern), contoh batas windu, tanggal peristiwa Keraton untuk pemeriksaan silang, dan jumlah perbedaan. Skrip memuat pemeriksaan internal (rumus awal tahun terhadap penjumlahan tahun demi tahun, jangkar tanggal, dan weton 26 April 1975). Pada revisi ini keempat model pada skrip dicocokkan dengan keluaran program aslinya (kode rsjp dan almanak dijalankan; port Python `weton.m` dijalankan): 0 selisih pada AJ 1867-1986, dan pada `weton.m` juga 0 selisih terhadap seluruh AJ 1555-1986 (82 awal tahun berbeda dari pawukon). Untuk menghindari kesan kepastian berlebihan, nama kolom secara eksplisit menyebut rekonstruksi aturan. Kunci `windu_inspected_js_formula` mereproduksi rumus lama; sejak perbaikan bab 8, mesin mengikuti `windu_by_eight_javanese_years`. Validasi berikutnya yang paling bernilai adalah menjalankan kasus yang sama pada checkout upstream asli dan mencocokkannya dengan eksemplar kalender serta kitab yang identitasnya dibekukan.
