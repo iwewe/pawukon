@@ -143,8 +143,8 @@ Konstanta: `CATATAN`, `PERINGATAN_MEDIS`, `PERINGATAN_CIRI`.
 
 ## Kalender
 
-Algoritma merujuk pada `weton.m` (François Beauducel; kode ditulis ulang, lihat [NOTICE.md](NOTICE.md)) dan dibandingkan dengan port Python pada
-3344 tanggal tanpa selisih. Epos: 8 Juli 1633 = Jumat Legi, 1 Sura Alip 1555.
+Algoritma merujuk pada `weton.m` (François Beauducel; kode ditulis ulang, lihat [NOTICE.md](NOTICE.md)) dan dikoreksi agar cocok dengan tabel Karaton Yogyakarta, dan dibandingkan dengan port Python
+yang sudah dikoreksi pada 3344 tanggal tanpa selisih. Epos: 8 Juli 1633 = Jumat Legi, 1 Sura Alip 1555.
 
 | Bagian | Jangkauan |
 |---|---|
@@ -156,9 +156,9 @@ Algoritma merujuk pada `weton.m` (François Beauducel; kode ditulis ulang, lihat
 - **Weton dan wuku:** cocok dengan `weton.m`, `research-system-javanese-profile`, dan `almanak`; cocok dengan weton 26 April 1975
   (Sabtu Kliwon) dan siklus Galungan-Kuningan 2024-2027. Penyelarasan wuku dan pasaran juga cocok dengan 11 hari Taliwangke dan
   Samparwangke yang disebut kitab (wuku + hari + pasaran), bukti yang tidak bergantung pada `weton.m`.
-- **Tanggal Jawa:** mengikuti tabel kurup `weton.m`, cocok dengan 4 contoh yang dipublikasikan. **Belum diverifikasi** terhadap kalender
-  resmi Kraton: pada 1 Sura 1957 dan 1959 mesin ini berbeda satu hari dari `research-system-javanese-profile`.
-- **Tes regresi:** `tests/golden.json` berisi 458 tanggal (+76 Yogyakarta) dari port Python `weton.m`; itu bukan keluaran Octave asli.
+- **Tanggal Jawa:** cocok dengan tabel awal bulan kalender **Karaton Yogyakarta** untuk kurup Asapon (1936-2052) dan Aboge (1821-1935), serta 12 titik
+  Almanak Jawa (lihat bagian Verifikasi). Kurup sebelum 1819 belum diverifikasi.
+- **Tes regresi:** `tests/golden.json` berisi 458 tanggal (+76 Yogyakarta) dari port Python `weton.m` yang sudah diberi dua koreksi Karaton (bukan keluaran Octave asli); `tests/kraton.test.js` memeriksa langsung terhadap tabel Karaton.
 - **Hari mulia** yang dihitung: Siji Sura, Kuningan, Hanggara Asih, Dina Mulya, Dina Purnama ("Aboge" dan "Daltugi" di `weton.m`
   hanya memeriksa sebagian syarat, jadi sengaja tidak dimasukkan).
 
@@ -170,30 +170,42 @@ ditandai `bergantungTanggalJawa: true`. Kitab mengikuti sistem **Aboge** (Alip =
 sehari, sehingga aturannya dievaluasi lewat tanggal dan bulan, bukan lewat hari pekan yang tertulis. Mangsa memakai kalender pranata mangsa
 baku, bukan dari kitab.
 
-### Selisih satu hari dengan kalender lain (terbuka, menunggu kalender Kraton)
+### Verifikasi dengan kalender Karaton Yogyakarta
 
-**Status:** belum terselesaikan; akan diperbaiki setelah kalender resmi Kraton tersedia sebagai pembanding.
+**Sumber:** Siti Marhamah, *Kalender Jawa Islam Sultan Agungan di Kesultanan Yogyakarta* (Tesis Ilmu Falak, UIN Walisongo Semarang, 2022):
+rumus dan tabel awal bulan hlm. 51-69 (mengutip KRT Rintaiswara, *Tahun Jawa Islam Sultan Agungan*, Dinas Kebudayaan DIY bersama Karaton
+Ngayogyakarta Hadiningrat, 2015), serta data Almanak Jawa dan kalender Karaton hlm. 114-127. Tabel disalin ke `tests/data-kraton.js`.
 
-**Yang diketahui.** Mesin ini dibandingkan dengan `research-system-javanese-profile` (rsjp) pada 6209 hari (2018-2034):
-- **Weton, wuku, dan pasaran identik pada semua hari** (0 selisih). Hanya **nomor tanggal Jawa** (dan batas tahun) yang bisa berbeda.
-- Pada tahun AJ **1951 (Jan-Sep 2018), 1957, 1959, 1965, dan 1967 (sebagian 1968)** seluruh tanggal mesin ini **tertinggal satu hari** dari rsjp.
-  Pada tahun lain di rentang itu (1952-1956, 1958, 1960-1964, 1966) keduanya sama.
-- Contoh: 1 Sura 1957 menurut mesin = Kamis Pahing 20 Juli 2023, menurut rsjp = Rabu Legi 19 Juli 2023; 1 Sura 1959 menurut mesin =
-  Sabtu Legi 28 Juni 2025, menurut rsjp = Jumat Kliwon 27 Juni 2025. Awal 1956, 1958, dan 1960 sama (30 Juli 2022, 8 Juli 2024, 17 Juni 2026).
-- Pada 1956-1959 pola ini berarti hari ke-355 (tahun wuntu) jatuh pada tahun yang berbeda: mesin memberi 355 hari pada 1956 dan 1958, rsjp pada 1957 dan 1959.
+**Hasil.** Karaton menetapkan 1 Sura tiap tahun dalam windu secara tetap sepanjang satu kurup (Asapon: Alip Selasa Pon, Ehe Sabtu Pahing,
+Jimawal Kamis Pahing, Je Senin Legi, Dal Jumat Kliwon, Be Rabu Kliwon, Wawu Ahad Wage, Jimakir Kamis Pon), dengan tahun wuntu (355 hari) =
+**Ehe, Dal, Jimakir** (tahun ke-2, 5, 8). Mesin ini sebelumnya (mengikuti `weton.m`) memberi 355 hari pada **Je** dan 354 pada **Dal**, sehingga
+**seluruh tahun Dal bergeser satu hari** dari tabel Karaton, dan penyesuaian "kurup berakhir lebih cepat sehari" jatuh pada tahun yang keliru di
+ujung Aboge (AJ 1865-1866). Keduanya sudah dikoreksi. Sekarang mesin cocok dengan tabel Karaton pada **semua 1440 awal bulan Asapon
+(1936-2052) dan semua 1416 awal bulan Aboge (1821-1935)**, dan dengan 12 titik data Almanak Jawa/kalender Karaton yang dimuat tesis.
 
-**Dugaan sebab (belum terbukti):** perbedaan penetapan tahun mana yang berumur 355 hari / pergeseran kurup, atau konvensi pergantian hari
-saat maghrib (malam 1 Sura jatuh pada malam sebelum tanggal Masehi yang dikutip). Tidak ada satu pun dari keduanya yang dapat dipastikan tanpa kalender Kraton.
+- Contoh yang berubah: 1 Sura Dal 1959 = **Jumat Kliwon 27 Juni 2025** (sebelumnya 28 Juni, Sabtu Legi). Tahun Dal berikutnya: AJ 1967 (2033-2034).
+  1 Sura Jimawal 1957 = Kamis Pahing 20 Juli 2023 tidak berubah.
+- Weton, wuku, dan pasaran tidak pernah terpengaruh (siklus murni). Yang berubah hanya nomor tanggal, bulan, dan batas tahun Jawa pada tahun Dal
+  Asapon (AJ 1871, 1879, ..., 1959, 1967, ..., 1983), sebagian tahun Dal Aboge, dan AJ 1865-1866; 241 dari 3344 tanggal uji berubah.
+- `research-system-javanese-profile` (rsjp), pembanding sebelumnya, juga tidak sepenuhnya cocok dengan Karaton: ia benar pada tahun Dal tetapi memberi
+  tahun Jimawal satu hari lebih awal (1 Sura 1957 = 19 Juli 2023, Karaton: 20 Juli 2023).
 
-**Dampak:** hanya hasil yang memakai tanggal, bulan, atau tahun Jawa (`kalenderJawa`, aturan `bergantungTanggalJawa: true`) pada tahun-tahun di atas yang bisa
-bergeser satu hari. Semua yang berbasis hari, pasaran, wuku, dan jumlah neptu tidak terpengaruh. Opsi `{ jogja: true }` hanya menyangkut kurup 1821-1866.
+**Salah ketik tesis** dikoreksi karena terbukti secara aritmetika (awal bulan berurutan harus berselisih 29 atau 30 hari): Aboge Alip Jumadilakir
+"Kamis Pon" -> "Kamis Pahing"; Aboge Je Sapar "Kamis Pon" -> "Kamis Pahing"; Asapon Jimawal Rejeb "Selasa Wage" -> "Sabtu Wage".
+Pada teks 1 Poso 1953 tercetak "24 Mei 2020", padahal tabelnya 24 April 2020 (1 Ramadhan 1441 H).
 
-**Rencana perbaikan:**
-1. Kumpulkan 1 Sura (hari, pasaran, tanggal Masehi) dan panjang tiap bulan dari kalender Kraton untuk AJ sekitar 1930-1990 (lebih panjang lebih baik).
-2. Bandingkan dengan mesin dan rsjp; tentukan mana yang cocok.
-3. Bila Kraton cocok dengan salah satunya, koreksi tabel panjang tahun/kurup di `src/kalender.js` dan perbarui `tests/golden.json`; bila berbeda dari
-   keduanya, tambahkan opsi `kalenderJawa(tgl, { kraton: true })` seperti `jogja`.
-4. Tambahkan tes regresi per tanggal 1 Sura dari data Kraton.
+**Batas bukti (jujur).** Dua belas titik data almanak yang tercetak tidak ada yang jatuh pada tahun Dal, jadi tidak membedakan mesin lama dan baru.
+Koreksi bertumpu pada rumus/tabel Karaton dari publikasi 2015 dan panjang tahun pada Tabel 1 tesis, bukan pada satu tanggal almanak tahun Dal.
+Sangat disarankan mencocokkan dengan kalender cetak Karaton tahun 1959 J (Juni 2025 - Juni 2026): 1 Sura harus Jumat Kliwon 27 Juni 2025.
+
+**Masih terbuka:**
+1. **Batas kurup sebelum 1867.** Tesis: Amahgi (Jumuwah Legi) 1555-1627, Amiswon (Kemis Kliwon) 1627-1747, Aboge 1747-1867. Mesin (weton.m): 1555-1675,
+   1675-1749, 1749-1867 (dengan geseran 2). Akibatnya AJ 1746-1748 (1819-1821 M) tidak cocok dengan tabel Aboge, dan tidak ada tabel Karaton untuk
+   Amahgi/Amiswon. Opsi `{ jogja: true }` (kurup ke-3 mulai 1795) juga tidak didukung tesis. Dicatat di `tests/kraton.test.js`.
+2. **Pergantian hari.** Hari Jawa dimulai saat maghrib (tesis hlm. 54); mesin memakai hari kalender Masehi, jadi "malam 1 Sura" jatuh pada malam
+   sebelum tanggal Masehi yang dilaporkan.
+3. **Tanggal ibadah.** Sejak 3 Januari 1946 penentuan awal Ramadhan dan Syawal ada pada pemerintah (Kementerian Agama); kalender Jawa Karaton kini untuk adat dan
+   administrasi, sehingga awal Poso/Sawal Karaton bisa berbeda satu hari dari Hijriyah (tesis hlm. 117-127).
 
 ## Asumsi dan anomali kitab
 
@@ -253,7 +265,7 @@ Tercatat di data dan keluar pada hasil fungsi yang bersangkutan. Keganjilan ceta
 | Bab 120-129 selain bagian di atas | 120 (penilaian perempuan menurut warna kulit, bentuk badan, gerak-gerik), 121, 122, 124-127, 128-129 (selain catatan) | **Sengaja tidak dimasukkan:** bukan hitungan kalender dan menstigma (penilaian watak dan kesetiaan perempuan dari penampilan; penilaian erotis tubuh), mantra dan tata cara (125-126), ramuan pembersih (127), aturan hari yang mengaitkan kecacatan atau "kegilaan" anak dengan perilaku orang tua (122), serta pantangan, ramuan, dan doa kehamilan (128-129) |
 | Ramuan, mantra, doa, tumbal, ritual bepergian | 75-90, 138, 139, 142, 169-171, 182-184, 186, 200-221, 280-285, 319, 323-324, 326; doa pada 157; busana/ritual pada 158 dan 166 | **Sengaja tidak dimasukkan** (ramuan dapat membahayakan, doa bukan data) |
 | Tanda alam, hewan, mimpi, pencuri, barang hilang | 222-317 | Di luar perhitungan kalender |
-| Selisih satu hari tanggal Jawa dengan Kraton | | Menunggu kalender Kraton sebagai pembanding |
+| Batas kurup Jawa sebelum 1867 (Amahgi, Amiswon, awal Aboge) | | Tesis dan `weton.m` berbeda; tidak ada tabel Karaton untuk kurup awal |
 
 ## Pengembangan
 

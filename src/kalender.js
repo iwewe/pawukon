@@ -5,6 +5,9 @@
  * hari kalender Gregorian (proleptik). Algoritma merujuk pada `weton.m` karya
  * François Beauducel dan artikel Karjanto & Beauducel (2020); kode ditulis ulang (lihat NOTICE.md).
  *
+ * Panjang tahun dan awal bulan sudah dikoreksi agar cocok dengan tabel Karaton Yogyakarta (tahun wuntu = Ehe, Dal, Jimakir);
+ * lihat README, bagian "Verifikasi dengan kalender Karaton".
+ *
  * Batas pemakaian:
  *  - weton, wuku, neptu: siklus murni (modulo 5/7/35/210), berlaku untuk tanggal apa pun.
  *  - tanggal Jawa, tahun, windu, lambang, kurup: hanya 8 Juli 1633 – 25 Agustus 2052.
@@ -165,9 +168,12 @@ function bangunTabel(jogja) {
   const kolom = Array.from({ length: 120 * NKRP }, () => new Array(12).fill(0));
   for (let k = 1; k <= NKRP; k++) {
     const wtd = WTD[Math.min(k, 4)];
+    // Tahun wuntu (355 hari) = Ehe, Dal, Jimakir (tahun ke-2, 5, 8), sama dengan tabel Karaton (lihat README, bagian Kraton).
+    // weton.m memakai tahun ke-4 (Je) = 355 dan tahun ke-5 (Dal) = 354 pada kurup ke-3 dan seterusnya; itu menyimpang
+    // dari kalender Karaton Yogyakarta pada seluruh tahun Dal.
     const hw = k <= 2
       ? [W354, W355, W354, W354, wtd, W354, W354, W355]
-      : [W354, W355, W354, W355, wtd, W354, W354, W355];
+      : [W354, W355, W354, W354, W355, W354, W354, W355];
     const krp = Array.from({ length: 120 }, (_, i) => [...hw[i % 8]]);
     let awal, panjang, geser;
     if (k < kurup.length) {
@@ -179,7 +185,7 @@ function bangunTabel(jogja) {
       panjang = 120;
       geser = 0;
     }
-    krp[panjang - 1][11] -= 1; // kurup berakhir satu hari lebih cepat
+    krp[panjang - 1 + geser][11] -= 1; // kurup berakhir satu hari lebih cepat (pada tahun terakhir yang benar-benar dipakai)
     for (let y = awal; y < awal + panjang; y++) {
       kolom[y - AJ] = [...krp[y - awal + geser]];
     }
