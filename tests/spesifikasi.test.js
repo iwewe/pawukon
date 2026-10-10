@@ -4,10 +4,10 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { kalenderJawa, weton, nomorHari, isoDariNomor, WULAN } from '../src/index.js';
 
-// Menjaga RUMUSAN_PERHITUNGAN.md, spec/vektor_uji.json, dan mesin JS tetap sama.
+// Menjaga docs/spesifikasi/RUMUSAN_PERHITUNGAN.md, spec/vektor_uji.json, dan mesin JS tetap sama.
 // Implementasi acuan lain: spec/referensi.py (python3 -I spec/referensi.py).
 
-const doc = readFileSync(new URL('../RUMUSAN_PERHITUNGAN.md', import.meta.url), 'utf8');
+const doc = readFileSync(new URL('../docs/spesifikasi/RUMUSAN_PERHITUNGAN.md', import.meta.url), 'utf8');
 const vektor = JSON.parse(readFileSync(new URL('../spec/vektor_uji.json', import.meta.url), 'utf8'));
 const N0 = nomorHari('1633-07-08');
 const AKHIR_TABEL = 238133; // 2285-07-03: akhir AJ 2226, batas tabel mesin
@@ -84,4 +84,24 @@ test('contoh hitung tangan (bagian 9): 27 Juni 2025', () => {
   assert.equal(Math.floor(138 / 7), 19);
   assert.equal(Math.floor((8 * d) / 2835), 403);
   assert.equal(50 * 2835 + 1417 - 3, d);
+});
+
+test('rumus siklus (RUMUSAN bagian 4) sama dengan mesin: setiap hari 1633-07-08 .. 2285-07-03 dan 50.000 hari sebelum epoch', () => {
+  const HARI = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+  const PASARAN = ['Legi', 'Pahing', 'Pon', 'Wage', 'Kliwon'];
+  const NEPTU_HARI = [4, 3, 7, 8, 6, 9, 5];
+  const NEPTU_PASARAN = [5, 9, 7, 4, 8];
+  const mod = (a, b) => ((a % b) + b) % b;
+  let salah = 0;
+  let diperiksa = 0;
+  for (let d = -50000; d <= AKHIR_TABEL; d++) {
+    const w = weton(isoDariNomor(N0 + d));
+    const ih = mod(d + 4, 7);
+    const ip = mod(d, 5);
+    const iw = Math.floor(mod(d + 194, 210) / 7);
+    diperiksa++;
+    if (w.weton !== `${HARI[ih]} ${PASARAN[ip]}` || w.neptu.total !== NEPTU_HARI[ih] + NEPTU_PASARAN[ip] || w.nomorWuku !== iw + 1) salah++;
+  }
+  assert.equal(diperiksa, 288134); // 50.000 sebelum epoch + 238.134 hari
+  assert.equal(salah, 0);
 });

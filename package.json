@@ -16,7 +16,8 @@
     "pawukon",
     "primbon",
     "betaljemur",
-    "kalender-jawa"
+    "kalender-jawa",
+    "sultan-agungan"
   ],
   "type": "module",
   "private": true,
@@ -24,12 +25,16 @@
   "exports": "./src/index.js",
   "files": [
     "src",
+    "docs",
     "README.md",
+    "CHANGELOG.md",
+    "CITATION.cff",
     "LICENSE",
     "NOTICE.md"
   ],
   "scripts": {
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "verify": "node --test tests/*.test.js && python3 -I spec/referensi.py"
   },
   "engines": {
     "node": ">=18"

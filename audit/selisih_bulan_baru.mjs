@@ -4,7 +4,7 @@
 // Perlu `astronomy-engine` (bukan dependensi proyek ini; hanya untuk skrip audit ini):
 //   npm i --no-save astronomy-engine && node audit/selisih_bulan_baru.mjs
 //   atau: ASTRONOMY_ENGINE=/jalur/ke/astronomy-engine/esm/astronomy.js node audit/selisih_bulan_baru.mjs
-// Keluaran: JSON ke stdout. Dokumen penjelasan: PAWUKON_DAN_ASTROLOGI.md.
+// Keluaran: JSON ke stdout. Dokumen penjelasan: docs/ilmiah/PAWUKON_DAN_ASTROLOGI.md.
 //
 // Definisi: untuk tiap tanggal 1 bulan Jawa (tanggal sipil D), ambil bulan baru yang waktunya paling dekat dengan D 00:00 WIB (UTC+7),
 //   ("awalMaghribSebelumKonjungsi": jam < 0.25 hari, yaitu magrib pembuka hari ke-1 (kira-kira 18.00 WIB, 6 jam sebelum D 00:00) jatuh sebelum konjungsi.)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Implementasi acuan rumusan_perhitungan_pawukon.md: bilangan bulat murni, hanya pustaka standar.
+"""Implementasi acuan docs/spesifikasi/RUMUSAN_PERHITUNGAN.md: bilangan bulat murni, hanya pustaka standar.
 
 Ditulis dari spesifikasi (bukan dari src/kalender.js) supaya dapat menjadi pembanding independen. Tidak memakai
 `datetime`; semua dari aritmetika bilangan bulat.

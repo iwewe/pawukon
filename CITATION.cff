@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "Jika Anda memakai pustaka atau dokumentasi ini, mohon kutip seperti di bawah dan sebutkan versi atau commit yang dipakai. If you use this work, please cite it as below and state the version or commit."
+title: "pawukon: rumusan komputasi kalender Jawa Sultan Agungan dan petungan Betaljemur Adammakna"
+type: software
+version: 0.2.0
+date-released: "2026-10-11"
+license: MIT
+url: "https://github.com/iwewe/pawukon"
+repository-code: "https://github.com/iwewe/pawukon"
+authors:
+  - alias: "Iwewe"
+abstract: >-
+  pawukon is a dependency-free JavaScript library and a reproducible reference for the Javanese Sultan Agungan arithmetic calendar
+  (as kept by the Keraton Ngayogyakarta), the 210-day pawukon cycle (weton, wuku, neptu), and the traditional readings of the Betaljemur
+  Adammakna primbon. The calendar is specified as a language-neutral integer formulation with test vectors and SHA-256 checksums, checked
+  day by day against an independent implementation, and compared with the Keraton month-start tables, printed almanac dates and Keraton
+  event announcements. A measurement against astronomical new moons (5,184 months, 1633-2052) shows that the 120-year kurup correction
+  removes the secular drift between the arithmetic year (354.375 days) and twelve synodic months (354.367 days). Interpretations are
+  tradition: they are not tested and not claimed to be valid. Documentation is in Indonesian, with a claims-and-evidence matrix.
+keywords:
+  - javanese calendar
+  - kalender jawa
+  - weton
+  - pawukon
+  - sultan agungan
+  - primbon
+  - betaljemur
+  - arithmetic calendar
+  - reproducibility
+references:
+  - type: thesis
+    authors:
+      - family-names: "Marhamah"
+        given-names: "Siti"
+    title: "Kalender Jawa Islam Sultan Agungan di Kesultanan Yogyakarta"
+    year: 2022
+    thesis-type: "Tesis Magister Ilmu Falak"
+    institution:
+      name: "UIN Walisongo Semarang"
+  - type: generic
+    authors:
+      - family-names: "Karjanto"
+        given-names: "Natanael"
+      - family-names: "Beauducel"
+        given-names: "Francois"
+    title: "An ethnoarithmetic excursion into the Javanese calendar"
+    year: 2020
+    notes: "Preprint arXiv:2012.10064v1"
+    doi: "10.48550/arXiv.2012.10064"

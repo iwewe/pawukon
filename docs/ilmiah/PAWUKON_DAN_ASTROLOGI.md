@@ -36,13 +36,13 @@ hari, tradisi primbon).
 
 ## 3. Status tiap lapis
 
-* **Hitungan.** Bukan pseudo. Rumusan di [RUMUSAN_PERHITUNGAN.md](RUMUSAN_PERHITUNGAN.md) deterministik, cocok pada
+* **Hitungan.** Bukan pseudo. Rumusan di [RUMUSAN_PERHITUNGAN.md](../spesifikasi/RUMUSAN_PERHITUNGAN.md) deterministik, cocok pada
   setiap hari dengan implementasi acuan, dan diuji terhadap tabel Keraton. Kebenarannya *kesesuaian dengan acuan*, bukan
   kebenaran fisik; itu sebabnya selisih sehari pada tahun Dal dapat diputuskan dari tabel, bukan dari pengamatan.
 * **Tafsir.** Tradisi. Tidak ada validasi empiris yang saya ketahui untuk tafsir pawukon. Untuk astrologi Barat, uji buta ganda
   klasik (Carlson, *Nature* 318, 1985) tidak menemukan kemampuan mencocokkan bagan lebih baik daripada kebetulan; Human Design
   dan Gene Keys tidak punya validasi yang lebih kuat sepengetahuan saya. Jadi pawukon tidak lebih "palsu" daripada yang lain,
-  dan juga tidak lebih benar. Penafian di README tetap berlaku: tafsir adalah tradisi, bukan fakta ilmiah atau nasihat
+  dan juga tidak lebih benar. Penafian di [README](../../README.md) tetap berlaku: tafsir adalah tradisi, bukan fakta ilmiah atau nasihat
   profesional.
 
 ## 4. Temuan: kurup adalah koreksi atas selisih bulan sinodis
@@ -58,7 +58,7 @@ per kurup        = 0,00794 x 120 tahun                 =   0,953    hari  ->  di
 
 Tahun Jawa sedikit lebih panjang daripada dua belas bulan sebenarnya, sehingga kalender murni (tanpa kurup) tertinggal dari
 Bulan sekitar satu hari setiap 120 tahun. Mesin ini menambahkan koreksi kurup Keraton; pembandingnya adalah kalender windu
-murni, yaitu metode tertua (README, "Metode tertua").
+murni, yaitu metode tertua ([Kalender dan verifikasi](KALENDER_DAN_VERIFIKASI.md), "Metode tertua dan sumber pembanding").
 
 ### 4.2 Pengukuran terhadap bulan baru astronomi
 
@@ -173,7 +173,7 @@ lalu: kalenderJawa(hariJawa)                                                    
 2. **Magrib = terbenam standar** `astronomy-engine`, tanpa tambahan menit.
 3. **Di luar 8 Juli 1633 sampai 3 Juli 2285** `javaneseDate` bernilai `null` dengan catatan, sedangkan siklus hari tetap dihitung
    (berlaku untuk semua tanggal). Sesudah 25 Agustus 2052 hasil ditandai `speculative`. Penyebabnya: tabel mesin JS hanya 672
-   tahun (lihat RUMUSAN_PERHITUNGAN.md bagian 11); pembungkus menjaga agar hasil keliru tidak pernah dikembalikan.
+   tahun (lihat [RUMUSAN_PERHITUNGAN.md](../spesifikasi/RUMUSAN_PERHITUNGAN.md) bagian 11); pembungkus menjaga agar hasil keliru tidak pernah dikembalikan.
 4. **Tafsir tetap di luar kalkulator.** Pembungkus NatalEngine memakai `astronomy-engine`; mesin pawukon tetap tanpa dependensi
    dan disalin apa adanya (vendored).
 

@@ -4,16 +4,16 @@ Dokumen ini memuat rumusan komputasi **yang tidak bergantung pada bahasa pemrogr
 pembagian lantai (`floor`), dan sisa bagi (`mod`). Siapa pun dapat mengimplementasikannya di bahasa apa pun (C, Go, Rust, Java,
 PHP, Kotlin, Dart, SQL, ...) lalu memeriksa hasilnya dengan vektor uji dan checksum di bagian 10.
 
-Acuan kalender: **kalender aritmetika Sultan Agungan menurut Keraton Ngayogyakarta** (kebijakan proyek, lihat README). Tidak ada
+Acuan kalender: **kalender aritmetika Sultan Agungan menurut Keraton Ngayogyakarta** (kebijakan proyek, lihat [Kalender dan verifikasi](../ilmiah/KALENDER_DAN_VERIFIKASI.md#acuan-kalender-kebijakan)). Tidak ada
 masukan dari rukyat, hisab Hijriyah, atau penetapan Ramadan/Syawal pemerintah; semuanya murni aritmetika.
 
 Berkas pendukung:
 
 | Berkas | Isi |
 |---|---|
-| `spec/referensi.py` | implementasi acuan (±180 baris), hanya pustaka standar Python, ditulis dari dokumen ini |
-| `spec/vektor_uji.json` | vektor uji (awal 673 tahun, 19 tanggal) dan checksum, dalam JSON |
-| `tests/spesifikasi.test.js` | menjaga dokumen, vektor, dan mesin JS tetap sama |
+| [`spec/referensi.py`](../../spec/referensi.py) | implementasi acuan (±180 baris), hanya pustaka standar Python, ditulis dari dokumen ini |
+| [`spec/vektor_uji.json`](../../spec/vektor_uji.json) | vektor uji (awal 673 tahun, 19 tanggal) dan checksum, dalam JSON |
+| [`tests/spesifikasi.test.js`](../../tests/spesifikasi.test.js) | menjaga dokumen, vektor, dan mesin JS tetap sama |
 
 ## 0. Ringkasan satu layar
 
@@ -124,7 +124,7 @@ ip = mod(d, 5)                      indeks PASARAN
 iw = floorDiv(mod(d + 194, 210), 7) indeks WUKU
 
 weton   = HARI[ih] + " " + PASARAN[ip]
-neptu   = NEPTU_HARI[ih] + NEPTU_PASARAN[ip]                  5..18
+neptu   = NEPTU_HARI[ih] + NEPTU_PASARAN[ip]                  7..18  (3 + 4 sampai 9 + 9)
 selapan = 35 hari = KPK(7, 5): weton yang sama berulang bila d bertambah 35
 pawukon = 210 hari = 30 wuku x 7 hari = KPK(7, 30 x 7)
 ```
@@ -345,7 +345,7 @@ Rumusan ini diuji terhadap data di luar kode proyek:
 * tabel awal bulan Keraton untuk kurup Aboge dan Asapon (8 nama tahun x 12 bulan, weton tanggal 1 tiap bulan) dari tesis
   Marhamah (2022, mengutip KRT Rintaiswara 2015): **seluruh 1440 awal bulan tiap kurup cocok**. Perhatikan bahwa angka ini
   berasal dari 96 entri pola per kurup yang berulang 15 windu (bukan observasi sejarah independen);
-* 12 tanggal dari Almanak Jawa cetak dan 3 peristiwa Keraton 2025 sampai 2026 (bagian 10.1);
+* 15 tanggal dari Tabel 6-15 tesis Marhamah (Almanak Jawa 1929-1939 dan kalender Keraton 2012, 2020; [`tests/almanak.test.js`](../../tests/almanak.test.js)) dan 3 peristiwa Keraton 2025 sampai 2026 (bagian 10.1);
 * `audit/audit_pawukon.py`: rekonstruksi mandiri empat model (rumus pawukon, weton.m, rsjp, almanak) beserta pernyataan
   internalnya (awal tahun rumus tertutup sama dengan penjumlahan tahun demi tahun; 26 April 1975 = Sabtu Kliwon, Kuningan, 17).
 

@@ -10,9 +10,9 @@ pada 3344 tanggal.
 
 **Data tafsir.** Fakta (angka, nama, pasangan, arah, urutan) berasal dari kitab Betaljemur Adammakna (terjemahan Indonesia
 modern). Kalimat makna ditulis ulang dengan kata sendiri dan tidak disalin; teks OCR mentah tidak disertakan. Lihat bagian
-"Cara menulis data" pada [README](README.md).
+"Cara menulis data" pada [Asumsi dan anomali](docs/ilmiah/ASUMSI_DAN_ANOMALI.md).
 
-**Kalender Keraton.** Tabel awal bulan kurup Aboge dan Asapon (`tests/data-kraton.js`) dan data Almanak Jawa berasal dari Siti Marhamah, *Kalender Jawa Islam
+**Kalender Keraton.** Tabel awal bulan kurup Aboge dan Asapon (`tests/data-kraton.js`) dan tanggal Almanak Jawa serta kalender Keraton pada Tabel 6-15 (`tests/data-almanak.js`) berasal dari Siti Marhamah, *Kalender Jawa Islam
 Sultan Agungan di Kesultanan Yogyakarta* (Tesis, UIN Walisongo Semarang, 2022), yang mengutip KRT Rintaiswara (2015). Dipakai sebagai data uji; fakta tanggal, bukan teks.
 
 **Pembanding.** `research-system-javanese-profile` (MIT) dan `almanak` dipakai hanya sebagai pembanding hasil, bukan sumber kode.
