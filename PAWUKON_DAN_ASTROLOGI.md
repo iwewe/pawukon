@@ -26,10 +26,10 @@ bagan kelahiran tanpa tafsir. Semua angka pengukuran di bawah dapat diulang deng
 | | Astrologi (Barat/Vedic/HD) | Pawukon |
 |---|---|---|
 | Lapis 1: astronomi (posisi benda langit) | ada: `astronomy-engine` (VSOP87, ±1 menit busur) | **tidak ada** untuk wuku dan pasaran |
-| Lapis 2: konvensi (zodiak, ayanamsa, gerbang, nakshatra, kurup, ...) | ada | ada (kalender aritmetika Karaton) |
+| Lapis 2: konvensi (zodiak, ayanamsa, gerbang, nakshatra, kurup, ...) | ada | ada (kalender aritmetika Keraton) |
 | Lapis 3: tafsir | ada (tidak tervalidasi) | ada (tidak tervalidasi) |
 | Masukan | tanggal, jam, lokasi | tanggal (jam hanya untuk batas magrib) |
-| Ukuran kebenaran lapis hitung | akurasi astronomi | kesesuaian dengan acuan Karaton |
+| Ukuran kebenaran lapis hitung | akurasi astronomi | kesesuaian dengan acuan Keraton |
 
 Akibatnya: menyebut pawukon "astrologi" kurang tepat. Istilah yang jujur adalah **kalender dan petungan** (numerologi
 hari, tradisi primbon).
@@ -37,7 +37,7 @@ hari, tradisi primbon).
 ## 3. Status tiap lapis
 
 * **Hitungan.** Bukan pseudo. Rumusan di [RUMUSAN_PERHITUNGAN.md](RUMUSAN_PERHITUNGAN.md) deterministik, cocok pada
-  setiap hari dengan implementasi acuan, dan diuji terhadap tabel Karaton. Kebenarannya *kesesuaian dengan acuan*, bukan
+  setiap hari dengan implementasi acuan, dan diuji terhadap tabel Keraton. Kebenarannya *kesesuaian dengan acuan*, bukan
   kebenaran fisik; itu sebabnya selisih sehari pada tahun Dal dapat diputuskan dari tabel, bukan dari pengamatan.
 * **Tafsir.** Tradisi. Tidak ada validasi empiris yang saya ketahui untuk tafsir pawukon. Untuk astrologi Barat, uji buta ganda
   klasik (Carlson, *Nature* 318, 1985) tidak menemukan kemampuan mencocokkan bagan lebih baik daripada kebetulan; Human Design
@@ -57,7 +57,7 @@ per kurup        = 0,00794 x 120 tahun                 =   0,953    hari  ->  di
 ```
 
 Tahun Jawa sedikit lebih panjang daripada dua belas bulan sebenarnya, sehingga kalender murni (tanpa kurup) tertinggal dari
-Bulan sekitar satu hari setiap 120 tahun. Mesin ini menambahkan koreksi kurup Karaton; pembandingnya adalah kalender windu
+Bulan sekitar satu hari setiap 120 tahun. Mesin ini menambahkan koreksi kurup Keraton; pembandingnya adalah kalender windu
 murni, yaitu metode tertua (README, "Metode tertua").
 
 ### 4.2 Pengukuran terhadap bulan baru astronomi
@@ -110,7 +110,7 @@ Yang tampak:
 
 ### 4.3 Batas pengukuran
 
-* Pencocokan memakai konjungsi terdekat dan `UTC+7`; Karaton Yogyakarta memakai waktu lokal sekitar UTC+7:20 (selisih 20
+* Pencocokan memakai konjungsi terdekat dan `UTC+7`; Keraton Yogyakarta memakai waktu lokal sekitar UTC+7:20 (selisih 20
   menit, jauh di bawah skala hari).
 * Magrib dianggap tetap 18.00 WIB pada hitungan "sebelum konjungsi"; angka 254 dan 98 bergeser sedikit bila memakai magrib
   sebenarnya.
@@ -168,7 +168,7 @@ Catatan:
 
 ### 5.4 Keputusan terbuka (milik pengguna)
 
-1. **Batas bawaan.** Karaton memakai magrib (tesis hlm. 54), tetapi pemakai primbon bermacam-macam; banyak yang memakai tanggal
+1. **Batas bawaan.** Keraton memakai magrib (tesis hlm. 54), tetapi pemakai primbon bermacam-macam; banyak yang memakai tanggal
    sipil. Usulan: bawaan `magrib` bila lokasi tersedia, selain itu `tengahMalam`, selalu menampilkan `batas`.
 2. **Definisi magrib.** Terbenam matahari geometris (bawaan `astronomy-engine`, ada koreksi refraksi), atau ditambah selisih
    beberapa menit. Usulan: terbenam standar tanpa tambahan.

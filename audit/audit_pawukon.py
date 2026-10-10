@@ -33,7 +33,7 @@ YEAR_NAMES = ['Alip', 'Ehe', 'Jimawal', 'Je', 'Dal', 'Be', 'Wawu', 'Jimakir']
 MONTH_NAMES = ['Sura','Sapar','Mulud','Bakdamulud','Jumadilawal','Jumadilakir','Rejeb','Ruwah','Pasa','Sawal','Dulkangidah','Besar']
 PATTERN = [354,355,354,354,355,354,354,355]
 PREFIX = [sum(PATTERN[:i]) for i in range(8)]
-WINDU = ['Kuntara','Sangara','Sancaya','Adi']  # ejaan Karaton; weton.m: Sengara
+WINDU = ['Kuntara','Sangara','Sancaya','Adi']  # ejaan Keraton; weton.m: Sengara
 LAMBANG = ['Kulawu','Langkir']
 WUKU = ['Sinta','Landep','Wukir','Kurantil','Tolu','Gumbreg','Warigalit','Warigagung','Julungwangi','Sungsang','Galungan','Kuningan','Langkir','Mandasiya','Julungpujut','Pahang','Kuruwelut','Marakeh','Tambir','Medangkungan','Maktal','Wuye','Manahil','Prangbakat','Bala','Wugu','Wayang','Kulawu','Dukut','Watugunung']
 

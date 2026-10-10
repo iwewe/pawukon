@@ -4,7 +4,7 @@ Dokumen ini memuat rumusan komputasi **yang tidak bergantung pada bahasa pemrogr
 pembagian lantai (`floor`), dan sisa bagi (`mod`). Siapa pun dapat mengimplementasikannya di bahasa apa pun (C, Go, Rust, Java,
 PHP, Kotlin, Dart, SQL, ...) lalu memeriksa hasilnya dengan vektor uji dan checksum di bagian 10.
 
-Acuan kalender: **kalender aritmetika Sultan Agungan menurut Karaton Ngayogyakarta** (kebijakan proyek, lihat README). Tidak ada
+Acuan kalender: **kalender aritmetika Sultan Agungan menurut Keraton Ngayogyakarta** (kebijakan proyek, lihat README). Tidak ada
 masukan dari rukyat, hisab Hijriyah, atau penetapan Ramadan/Syawal pemerintah; semuanya murni aritmetika.
 
 Berkas pendukung:
@@ -38,7 +38,7 @@ tanggal, bulan, tahun, windu, dan kurup yang memakai aturan kalender di bagian 5
 1. **Tanggal masukan** adalah tanggal sipil Gregorian proleptik (tahun, bulan, tanggal), tanpa zona waktu dan tanpa jam.
    Hari Jawa sebenarnya berganti saat magrib; rumusan ini bekerja pada hari sipil (tengah malam). Pemakai yang memerlukan
    pergantian magrib menambah satu hari pada tanggal sipil untuk waktu sesudah magrib sebelum memanggil rumusan.
-2. **Rentang terdefinisi** (kalender Karaton): `d = 0` (8 Juli 1633 = 1 Sura 1555 AJ) sampai `d = 153085` (25 Agustus 2052 =
+2. **Rentang terdefinisi** (kalender Keraton): `d = 0` (8 Juli 1633 = 1 Sura 1555 AJ) sampai `d = 153085` (25 Agustus 2052 =
    29 Besar 1986 AJ). Sesudahnya adalah **ekstrapolasi spekulatif** dengan aturan yang sama (bagian 8).
    Siklus hari, pasaran, wuku, dan neptu (bagian 4) berlaku untuk semua `d`, juga negatif.
 3. **Operator.** `floor(a / b)` adalah pembagian lantai dan `a mod b` selalu bernilai `0 <= r < b`, juga untuk `a` negatif.
@@ -235,7 +235,7 @@ Dalam rentang spekulatif, `hariMulia` tetap dihitung dengan aturan yang sama.
 | `d` | Perilaku |
 |---|---|
 | `d < 0` (sebelum 8 Juli 1633) | siklus bagian 4 tetap berlaku; **tanggal Jawa tidak terdefinisi** (kembalikan galat/`null`) |
-| `0 <= d <= 153085` | seluruh hasil terdefinisi; sesuai kalender Karaton |
+| `0 <= d <= 153085` | seluruh hasil terdefinisi; sesuai kalender Keraton |
 | `d > 153085` (sesudah 25 Agustus 2052) | rumus bagian 5 diteruskan tanpa batas dan ditandai `spekulatif = true`; kurup ke-5 mulai 26 Agustus 2052 (Senin Pahing, 1 Sura 1987) |
 
 Tidak ada otoritas yang menetapkan kurup sesudah 2052; ekstrapolasi ini hanya menerapkan aturan "tiap 120 tahun mundur
@@ -294,7 +294,7 @@ Sebuah implementasi dianggap sesuai bila lolos semuanya, berurutan dari yang ter
 | 2052-08-25 | 153085 | Minggu Legi | 10 | Kulawu | 29 Besar 1986 Jimakir (hari terakhir terdefinisi) |
 | 2052-08-26 | 153086 | Senin Pahing | 13 | Kulawu | 1 Sura 1987 Alip, Kurup 5, **spekulatif** |
 
-Tiga baris 2025 sampai 2026 cocok dengan peristiwa yang tercantum di laman resmi Karaton (4 Sura 1959 = 30 Juni 2025,
+Tiga baris 2025 sampai 2026 cocok dengan peristiwa yang tercantum di laman resmi Keraton (4 Sura 1959 = 30 Juni 2025,
 29 Besar 1959 = 15 Juni 2026). Daftar lengkap ada di `spec/vektor_uji.json` (`tanggal`).
 
 ### 10.2 Awal tahun
@@ -342,32 +342,32 @@ sama diteruskan.
 
 Rumusan ini diuji terhadap data di luar kode proyek:
 
-* tabel awal bulan Karaton untuk kurup Aboge dan Asapon (8 nama tahun x 12 bulan, weton tanggal 1 tiap bulan) dari tesis
+* tabel awal bulan Keraton untuk kurup Aboge dan Asapon (8 nama tahun x 12 bulan, weton tanggal 1 tiap bulan) dari tesis
   Marhamah (2022, mengutip KRT Rintaiswara 2015): **seluruh 1440 awal bulan tiap kurup cocok**. Perhatikan bahwa angka ini
   berasal dari 96 entri pola per kurup yang berulang 15 windu (bukan observasi sejarah independen);
-* 12 tanggal dari Almanak Jawa cetak dan 3 peristiwa Karaton 2025 sampai 2026 (bagian 10.1);
+* 12 tanggal dari Almanak Jawa cetak dan 3 peristiwa Keraton 2025 sampai 2026 (bagian 10.1);
 * `audit/audit_pawukon.py`: rekonstruksi mandiri empat model (rumus pawukon, weton.m, rsjp, almanak) beserta pernyataan
   internalnya (awal tahun rumus tertutup sama dengan penjumlahan tahun demi tahun; 26 April 1975 = Sabtu Kliwon, Kuningan, 17).
 
 ## 11. Batasan, penyimpangan, dan hal yang disengaja
 
-1. **Bukan pengamatan.** Seluruhnya aritmetika. Kalender Karaton juga mengikuti aturan hitung (tahun wuntu/wastu dan kurup),
+1. **Bukan pengamatan.** Seluruhnya aritmetika. Kalender Keraton juga mengikuti aturan hitung (tahun wuntu/wastu dan kurup),
    bukan pengamatan hilal, sehingga tidak sama dengan kalender Hijriyah resmi atau penetapan pemerintah.
-2. **Kurup Jamingiyah dan Kamsiyah (1633 sampai 1819)** tidak memiliki tabel awal bulan Karaton sebagai pembanding; kalender
+2. **Kurup Jamingiyah dan Kamsiyah (1633 sampai 1819)** tidak memiliki tabel awal bulan Keraton sebagai pembanding; kalender
    di rentang itu mengikuti aturan windu murni dengan koreksi kurup (bagian 10.4). Pembuktian empiris ada pada Aboge dan
    Asapon saja.
-3. **Pola Dal.** Tahun Dal berumur 355 hari (wuntu) menurut laman resmi Karaton (Ehe, Dal, Jimakir). `weton.m` memakai Je 355
-   dan Dal 354, sehingga setiap tahun Dal berselisih sehari; dokumen ini mengikuti Karaton.
-4. **Batas kurup** 1627, 1747, 1867 (Karaton); `weton.m` memakai 1675 dan 1749 dengan geseran dua hari. Satu laporan
+3. **Pola Dal.** Tahun Dal berumur 355 hari (wuntu) menurut laman resmi Keraton (Ehe, Dal, Jimakir). `weton.m` memakai Je 355
+   dan Dal 354, sehingga setiap tahun Dal berselisih sehari; dokumen ini mengikuti Keraton.
+4. **Batas kurup** 1627, 1747, 1867 (Keraton); `weton.m` memakai 1675 dan 1749 dengan geseran dua hari. Satu laporan
    akademik (Karjanto dan Beauducel, tabel 9) memuat 1795 untuk Yogyakarta secara historis; dokumen ini memilih angka dari
-   dokumentasi Karaton saat ini.
+   dokumentasi Keraton saat ini.
 5. **Windu menurut tahun, bukan blok hari.** Pembentukan windu dari `floor(dti / 2835)` (cara `weton.m`) berbeda dari
    `floor((y - 1555) / 8)` pada 53 hari dalam 1633 sampai 2052; dokumen ini memakai yang kedua.
 6. **Magrib.** Lihat bagian 1.
 7. **Batasan mesin JS (bukan rumusan).** `src/kalender.js` membangun tabel 672 tahun; **sesudah 3 Juli 2285 (akhir AJ 2226)
    tabelnya habis**, dan fungsi mengembalikan hasil keliru tanpa galat. Rumusan tertutup di dokumen ini tidak mengalami hal itu.
    Sampai batas tersebut hasil mesin JS dan acuan sama pada setiap hari (238.134 hari).
-8. **Nama.** Ejaan windu mengikuti Karaton ("Sangara"). Ejaan lain di pustaka (mis. "Sengara") hanya soal tulisan.
+8. **Nama.** Ejaan windu mengikuti Keraton ("Sangara"). Ejaan lain di pustaka (mis. "Sengara") hanya soal tulisan.
 
 ## 12. Cara menjalankan acuan dan tes
 

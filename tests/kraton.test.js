@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { kalenderJawa, nomorHari, isoDariNomor, WULAN, TAUN, HARI, PASARAN } from '../src/index.js';
 import { ABOGE, ASAPON } from './data-kraton.js';
 
-// Awal tiap bulan menurut Karaton Yogyakarta (tesis Marhamah 2022, mengutip KRT Rintaiswara 2015). Lihat data-kraton.js.
+// Awal tiap bulan menurut Keraton Yogyakarta (tesis Marhamah 2022, mengutip KRT Rintaiswara 2015). Lihat data-kraton.js.
 
 const KURUP = { Aboge: ABOGE, Asapon: ASAPON };
 
@@ -18,7 +18,7 @@ function awalBulan(kurup, dari, sampai) {
   return hasil;
 }
 
-test('tabel Karaton dalam repo: 8 tahun x 12 bulan, nama sah', () => {
+test('tabel Keraton dalam repo: 8 tahun x 12 bulan, nama sah', () => {
   for (const t of Object.values(KURUP)) {
     assert.deepEqual(Object.keys(t), TAUN);
     for (const bulan of Object.values(t)) {
@@ -31,7 +31,7 @@ test('tabel Karaton dalam repo: 8 tahun x 12 bulan, nama sah', () => {
   }
 });
 
-test('tabel Karaton konsisten sendiri: selisih awal bulan 30 dan 29 hari bergantian; Besar 29 atau 30', () => {
+test('tabel Keraton konsisten sendiri: selisih awal bulan 30 dan 29 hari bergantian; Besar 29 atau 30', () => {
   const urutHari = (w) => HARI.indexOf(w.split(' ')[0]);
   const urutPasaran = (w) => PASARAN.indexOf(w.split(' ')[1]);
   const selisih = (a, b) => [29, 30, 354, 355].find(d => (urutHari(a) + d) % 7 === urutHari(b) && (urutPasaran(a) + d) % 5 === urutPasaran(b));
@@ -44,7 +44,7 @@ test('tabel Karaton konsisten sendiri: selisih awal bulan 30 dan 29 hari bergant
   }
 });
 
-test('panjang tahun menurut Karaton: Ehe, Dal, Jimakir 355 hari; yang lain 354 (kedua kurup)', () => {
+test('panjang tahun menurut Keraton: Ehe, Dal, Jimakir 355 hari; yang lain 354 (kedua kurup)', () => {
   const urutHari = (w) => HARI.indexOf(w.split(' ')[0]);
   const urutPasaran = (w) => PASARAN.indexOf(w.split(' ')[1]);
   for (const [nama, t] of Object.entries(KURUP)) {
@@ -56,7 +56,7 @@ test('panjang tahun menurut Karaton: Ehe, Dal, Jimakir 355 hari; yang lain 354 (
   }
 });
 
-test('mesin cocok dengan Karaton pada SELURUH awal bulan kurup Asapon (1936-2052): 1440 bulan', () => {
+test('mesin cocok dengan Keraton pada SELURUH awal bulan kurup Asapon (1936-2052): 1440 bulan', () => {
   const hasil = awalBulan('Asapon', '1936-03-01', '2052-08-25');
   assert.equal(hasil.length, 1440);
   for (const { iso, k } of hasil) {
@@ -64,7 +64,7 @@ test('mesin cocok dengan Karaton pada SELURUH awal bulan kurup Asapon (1936-2052
   }
 });
 
-test('mesin cocok dengan Karaton pada seluruh awal bulan kurup Aboge (AJ 1747-1866, 1819-1936): 1440 bulan', () => {
+test('mesin cocok dengan Keraton pada seluruh awal bulan kurup Aboge (AJ 1747-1866, 1819-1936): 1440 bulan', () => {
   const hasil = awalBulan('Aboge', '1819-01-01', '1936-03-31');
   assert.equal(hasil.length, 1440);
   for (const { iso, k } of hasil) {
@@ -72,7 +72,7 @@ test('mesin cocok dengan Karaton pada seluruh awal bulan kurup Aboge (AJ 1747-18
   }
 });
 
-test('1 Sura menurut Karaton untuk tahun-tahun terkini (AJ 1956-1960)', () => {
+test('1 Sura menurut Keraton untuk tahun-tahun terkini (AJ 1956-1960)', () => {
   const awal = (tahun, dari) => {
     for (let n = nomorHari(dari); n < nomorHari(dari) + 400; n++) {
       const k = kalenderJawa(isoDariNomor(n));
@@ -86,7 +86,7 @@ test('1 Sura menurut Karaton untuk tahun-tahun terkini (AJ 1956-1960)', () => {
   assert.deepEqual(awal(1960, '2026-06-01'), { iso: '2026-06-17', weton: 'Rabu Kliwon' });    // Be
 });
 
-test('batas kurup menurut Karaton: 1 Sura tahun Alip pertama tiap kurup, mundur satu hari dan satu pasaran', () => {
+test('batas kurup menurut Keraton: 1 Sura tahun Alip pertama tiap kurup, mundur satu hari dan satu pasaran', () => {
   const awalAlip = { "A'ahgi": ['1633-07-08', 'Jumat Legi', 1555], Amiswon: ['1703-05-17', 'Kamis Kliwon', 1627], Aboge: ['1819-10-20', 'Rabu Wage', 1747], Asapon: ['1936-03-24', 'Selasa Pon', 1867] };
   for (const [kurup, [iso, weton, tahun]] of Object.entries(awalAlip)) {
     const k = kalenderJawa(iso);
@@ -111,7 +111,7 @@ test('1 Sura tahun Alip selalu jatuh pada hari-pasaran kurupnya, di SEMUA tahun 
   assert.deepEqual(hitung, { "A'ahgi": 9, Amiswon: 15, Aboge: 15, Asapon: 15 });
 });
 
-test('opsi jogja tidak ada lagi: kalenderJawa hanya mengenal kalender Karaton Yogyakarta', () => {
+test('opsi jogja tidak ada lagi: kalenderJawa hanya mengenal kalender Keraton Yogyakarta', () => {
   assert.equal(kalenderJawa('1850-01-01').teks, kalenderJawa('1850-01-01', { jogja: true }).teks); // argumen kedua diabaikan
   assert.equal(kalenderJawa.length, 1);
 });
@@ -119,7 +119,7 @@ test('opsi jogja tidak ada lagi: kalenderJawa hanya mengenal kalender Karaton Yo
 // --- metode windu murni (skema asli Sultan Agung, tanpa kurup) -----------------------------------------------------------------------
 // Implementasi terpisah dari kalender.js: pola 8 tahun (354, 355, 354, 354, 355, 354, 354, 355), bulan 30/29, Besar 30 pada tahun wuntu,
 // dihitung terus dari 1 Sura 1555 = 8 Juli 1633. Mesin harus sama dengan metode ini pada SETIAP hari, bergeser n hari menurut jumlah kurup yang
-// sudah lewat (tiap kurup membuat kalender Karaton mundur satu hari).
+// sudah lewat (tiap kurup membuat kalender Keraton mundur satu hari).
 
 function windumurni() {
   const POLA = [354, 355, 354, 354, 355, 354, 354, 355];

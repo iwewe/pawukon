@@ -1,8 +1,8 @@
 /**
- * Awal tiap bulan Jawa (hari dan pasaran tanggal 1) menurut Karaton Ngayogyakarta, kurup Aboge dan Asapon.
+ * Awal tiap bulan Jawa (hari dan pasaran tanggal 1) menurut Keraton Ngayogyakarta, kurup Aboge dan Asapon.
  * Sumber: Siti Marhamah, "Kalender Jawa Islam Sultan Agungan di Kesultanan Yogyakarta" (Tesis Ilmu Falak, UIN Walisongo
  * Semarang, 2022), hlm. 56-69, yang mengutip KRT Rintaiswara, Tahun Jawa Islam Sultan Agungan (Dinas Kebudayaan DIY bekerja
- * sama dengan Karaton Ngayogyakarta Hadiningrat, 2015), hlm. 9-13.
+ * sama dengan Keraton Ngayogyakarta Hadiningrat, 2015), hlm. 9-13.
  *
  * Tiga salah ketik pada tesis dikoreksi karena terbukti secara aritmetika (selisih antarbulan harus 29 atau 30 hari):
  *   Aboge  Alip Jumadilakir  "Kamis Pon"   -> "Kamis Pahing"

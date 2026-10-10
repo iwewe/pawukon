@@ -5,8 +5,8 @@
  * hari kalender Gregorian (proleptik). Algoritma merujuk pada `weton.m` karya
  * François Beauducel dan artikel Karjanto & Beauducel (2020); kode ditulis ulang (lihat NOTICE.md).
  *
- * Panjang tahun dan awal bulan sudah dikoreksi agar cocok dengan tabel Karaton Yogyakarta (tahun wuntu = Ehe, Dal, Jimakir);
- * lihat README, bagian "Verifikasi dengan kalender Karaton".
+ * Panjang tahun dan awal bulan sudah dikoreksi agar cocok dengan tabel Keraton Yogyakarta (tahun wuntu = Ehe, Dal, Jimakir);
+ * lihat README, bagian "Verifikasi dengan kalender Keraton".
  *
  * Batas pemakaian:
  *  - weton, wuku, neptu: siklus murni (modulo 5/7/35/210), berlaku untuk tanggal apa pun.
@@ -88,7 +88,7 @@ export const WULAN = [
   'Rejeb', 'Ruwah', 'Pasa', 'Sawal', 'Dulkangidah', 'Besar'
 ];
 export const TAUN = ['Alip', 'Ehe', 'Jimawal', 'Je', 'Dal', 'Be', 'Wawu', 'Jimakir'];
-// Ejaan Karaton dan tesis Marhamah: Kuntara, Sangara, Sancaya, Adi (weton.m mengeja "Sengara").
+// Ejaan Keraton dan tesis Marhamah: Kuntara, Sangara, Sancaya, Adi (weton.m mengeja "Sengara").
 export const WINDU = ['Adi', 'Kuntara', 'Sangara', 'Sancaya'];
 export const LAMBANG = ['Langkir', 'Kulawu'];
 
@@ -141,7 +141,7 @@ const AJ = 1555;
 const T0 = datenum(1633, 7, 8);
 const TL = datenum(2052, 8, 25);
 
-// [nama, nama pendek, taun AJ pertama]. Batas kurup menurut Karaton Yogyakarta (Marhamah 2022, hlm. 55-56): kurup pertama hanya
+// [nama, nama pendek, taun AJ pertama]. Batas kurup menurut Keraton Yogyakarta (Marhamah 2022, hlm. 55-56): kurup pertama hanya
 // 72 tahun (Sultan Agung memulai di tengah siklus), lalu 120 tahun tiap kurup. Hari-pasaran 1 Sura tahun Alip pertama tiap kurup:
 // Jumat Legi (1555), Kamis Kliwon (1627), Rabu Wage (1747), Selasa Pon (1867), tiap kurup mundur satu hari dan satu pasaran.
 const KURUP = [
@@ -155,7 +155,7 @@ const bulan = (...tambahan) => tambahan.map(x => 29 + x);
 const W354 = bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0);
 const W355 = bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1);
 // Pola windu Sultan Agungan, sama di semua kurup: tahun wuntu (355 hari, Besar 30) = Ehe, Dal, Jimakir (tahun ke-2, 5, 8);
-// bulan ganjil 30 hari, bulan genap 29 hari. Lihat README ("Verifikasi dengan kalender Karaton").
+// bulan ganjil 30 hari, bulan genap 29 hari. Lihat README ("Verifikasi dengan kalender Keraton").
 const WINDU_POLA = [W354, W355, W354, W354, W355, W354, W354, W355];
 
 const NKRP = 6; // sampai 2226 AJ: jauh melampaui 2052
@@ -166,7 +166,7 @@ function bangunTabel() {
   const kolom = Array.from({ length: 120 * NKRP }, () => new Array(12).fill(0));
   for (let k = 1; k <= NKRP; k++) {
     // weton.m menyimpang dari pola ini: Je = 355 dan Dal = 354 pada kurup ke-3 dst., dan pola bulan khusus pada tahun Dal kurup ke-2.
-    // Keduanya tidak didukung tabel Karaton maupun metode windu asli (lihat README).
+    // Keduanya tidak didukung tabel Keraton maupun metode windu asli (lihat README).
     const hw = WINDU_POLA;
     const krp = Array.from({ length: 120 }, (_, i) => [...hw[i % 8]]);
     let awal, panjang;

@@ -38,7 +38,7 @@ test('1 Januari 2000 = Sabtu Legi (kasus yang salah di weton.c)', () => {
   assert.equal(weton('2000-02-29').weton, 'Selasa Kliwon');
 });
 
-test('contoh terbit di weton.md dan artikel (tiga dari empat; yang keempat sengaja berbeda, lihat berikutnya; ejaan windu Sangara menurut Karaton, weton.md: Sêngara)', () => {
+test('contoh terbit di weton.md dan artikel (tiga dari empat; yang keempat sengaja berbeda, lihat berikutnya; ejaan windu Sangara menurut Keraton, weton.md: Sêngara)', () => {
   const cases = [
     ['1968-12-03', 'Selasa Kliwon Julungwangi 13 Pasa 1900 AJ Ehe Adi Langkir Salasiyah (Asapon)'],
     ['2020-10-01', 'Kemis Kliwon Langkir 13 Sapar 1954 AJ Jimakir Sangara Langkir Salasiyah (Asapon)'],

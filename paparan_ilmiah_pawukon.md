@@ -266,7 +266,7 @@ Rumusan kontribusi yang paling dapat dipertanggungjawabkan adalah: **pawukon men
 
 **[R3] Marhamah, Siti. (2022). _Kalender Jawa Islam Sultan Agungan di Kesultanan Yogyakarta_.** Tesis Magister Ilmu Falak, UIN Walisongo Semarang. Bagian relevan: aturan kalender dan rumus awal bulan sekitar hlm. 51-69 serta data kalender/almanak sekitar hlm. 114-127. PDF: `https://eprints.walisongo.ac.id/id/eprint/20058/1/Tesis_2002048019_Siti_Marhamah.pdf`.
 
-**[R4] Rintaiswara, KRT. (2015). _Tahun Jawa Islam Sultan Agungan_.** Yogyakarta: Dinas Kebudayaan Daerah Istimewa Yogyakarta bekerja sama dengan Karaton Ngayogyakarta Hadiningrat, menurut bibliografi tesis Marhamah. Uraian situs Keraton mencantumkan KHP Widyabudaya. Digunakan secara tidak langsung melalui [R3] dan [R10]; eksemplar lengkap belum diperiksa.
+**[R4] Rintaiswara, KRT. (2015). _Tahun Jawa Islam Sultan Agungan_.** Yogyakarta: Dinas Kebudayaan Daerah Istimewa Yogyakarta bekerja sama dengan Keraton Ngayogyakarta Hadiningrat, menurut bibliografi tesis Marhamah. Uraian situs Keraton mencantumkan KHP Widyabudaya. Digunakan secara tidak langsung melalui [R3] dan [R10]; eksemplar lengkap belum diperiksa.
 
 **[R5] Karjanto, Natanael, dan Francois Beauducel. (2020). _An ethnoarithmetic excursion into the Javanese calendar_.** Preprint arXiv:2012.10064v1; DOI `10.48550/arXiv.2012.10064`. Bagian penting: Tabel 6 (panjang tahun), Tabel 8-9 (batas kurup). Alamat: `https://arxiv.org/abs/2012.10064`.
 
@@ -280,17 +280,17 @@ Rumusan kontribusi yang paling dapat dipertanggungjawabkan adalah: **pawukon men
 
 ### B. Sumber tambahan untuk pemeriksaan silang
 
-**[R10] Karaton Ngayogyakarta Hadiningrat. (2019, 2 April). _Kalender Jawa Sultan Agungan_.** Uraian kelembagaan tentang siklus kalender, tahun panjang, dan epoch. Alamat: `https://www.kratonjogja.id/ragam/21-kalender-jawa-sultan-agungan/`.
+**[R10] Keraton Ngayogyakarta Hadiningrat. (2019, 2 April). _Kalender Jawa Sultan Agungan_.** Uraian kelembagaan tentang siklus kalender, tahun panjang, dan epoch. Alamat: `https://www.kratonjogja.id/ragam/21-kalender-jawa-sultan-agungan/`.
 
 **[R11] Soemodidjojo, R. (penghimpun). (2018). _Kitab Primbon Betaljemur Adammakna_.** Babon KPH Tjakraningrat; cetakan ke-63; edisi bahasa Jawa, Soemodidjojo Mahadewa. Transkripsi digital Wikisumber. Digunakan sebagai pembanding terarah bab 15, 16, dan 104, bukan sebagai identifikasi otomatis edisi sumber pawukon. Alamat: `https://jv.wikisource.org/wiki/Kitab_Primbon_Betaljemur_Adammakna`.
 
-**[R12] Karaton Ngayogyakarta Hadiningrat. (2023, 31 Agustus). _Hajad Kawula Dalem Mubeng Beteng 1 Sura Jimawal 1957 Kembali Diselenggarakan Secara Langsung_.** Bukti konteks malam 19 Juli 2023. Alamat: `https://www.kratonjogja.id/peristiwa/1274-hajad-kawula-dalem-mubeng-beteng-1-sura-jimawal-1957-kembali-diselenggarakan-secara-langsung/`.
+**[R12] Keraton Ngayogyakarta Hadiningrat. (2023, 31 Agustus). _Hajad Kawula Dalem Mubeng Beteng 1 Sura Jimawal 1957 Kembali Diselenggarakan Secara Langsung_.** Bukti konteks malam 19 Juli 2023. Alamat: `https://www.kratonjogja.id/peristiwa/1274-hajad-kawula-dalem-mubeng-beteng-1-sura-jimawal-1957-kembali-diselenggarakan-secara-langsung/`.
 
-**[R13] Karaton Ngayogyakarta Hadiningrat. _Srimpi Merak Kesimpir_.** Mencantumkan pergelaran 30 Juni 2025 sebagai 4 Sura Dal 1959. Alamat: `https://www.kratonjogja.id/kagungan-dalem/86-srimpi-merak-kesimpir/`.
+**[R13] Keraton Ngayogyakarta Hadiningrat. _Srimpi Merak Kesimpir_.** Mencantumkan pergelaran 30 Juni 2025 sebagai 4 Sura Dal 1959. Alamat: `https://www.kratonjogja.id/kagungan-dalem/86-srimpi-merak-kesimpir/`.
 
-**[R14] Karaton Ngayogyakarta Hadiningrat. (2026, 30 Januari). _Tingalan Jumenengan Dalem Dal 1959: Rasa Syukur Tandai 38 Tahun Sri Sultan Bertakhta_.** Mencantumkan 18 Januari 2026 sebagai 29 Rejeb Dal 1959 dan upacara Sugengan sekitar pukul 11.00 WIB. Alamat: `https://www.kratonjogja.id/peristiwa/1462-tingalan-jumenengan-dalem-dal-1959-rasa-syukur-tandai-38-tahun-sri-sultan-bertakhta/`.
+**[R14] Keraton Ngayogyakarta Hadiningrat. (2026, 30 Januari). _Tingalan Jumenengan Dalem Dal 1959: Rasa Syukur Tandai 38 Tahun Sri Sultan Bertakhta_.** Mencantumkan 18 Januari 2026 sebagai 29 Rejeb Dal 1959 dan upacara Sugengan sekitar pukul 11.00 WIB. Alamat: `https://www.kratonjogja.id/peristiwa/1462-tingalan-jumenengan-dalem-dal-1959-rasa-syukur-tandai-38-tahun-sri-sultan-bertakhta/`.
 
-**[R15] Karaton Ngayogyakarta Hadiningrat. (2026, 15 Juni). _Uyon-Uyon Hadiluhung Senin Pon 15 Juni 2026_.** Mencantumkan 29 Besar Dal 1959. Alamat: `https://www.kratonjogja.id/en/peristiwa/1486-uyon-uyon-hadiluhung-senin-pon-15-juni-2026/`.
+**[R15] Keraton Ngayogyakarta Hadiningrat. (2026, 15 Juni). _Uyon-Uyon Hadiluhung Senin Pon 15 Juni 2026_.** Mencantumkan 29 Besar Dal 1959. Alamat: `https://www.kratonjogja.id/en/peristiwa/1486-uyon-uyon-hadiluhung-senin-pon-15-juni-2026/`.
 
 ## Lampiran reproduksi
 
