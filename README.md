@@ -24,7 +24,7 @@ saatAgung('2026-10-10').saat;           // tujuh saat 06.00-18.00 dengan penilai
 Masukan tanggal boleh `'YYYY-MM-DD'`, `Date` (komponen lokal), `[tahun, bulan, hari]`, atau `{tahun, bulan, hari}`.
 `kalenderJawa(tgl, { jogja: true })` memakai kurup 3 versi Kasultanan Yogyakarta (memengaruhi 1821-1866).
 
-Lisensi **MIT** ([LICENSE](LICENSE)); rujukan dan kredit di [NOTICE.md](NOTICE.md).
+Repositori: https://github.com/iwewe/pawukon. Lisensi **MIT** ([LICENSE](LICENSE)); rujukan dan kredit di [NOTICE.md](NOTICE.md).
 
 > Semua tafsir adalah **tradisi**, bukan fakta ilmiah, ramalan, atau nasihat profesional (kesehatan, kehamilan, bangunan, pernikahan).
 
