@@ -140,14 +140,15 @@ const AJ = 1555;
 const T0 = datenum(1633, 7, 8);
 const TL = datenum(2052, 8, 25);
 
-// [nama, nama pendek, taun AJ pertama, geseran taun]
+// [nama, nama pendek, taun AJ pertama]. Batas kurup menurut Karaton Yogyakarta (Marhamah 2022, hlm. 55-56): kurup pertama hanya
+// 72 tahun (Sultan Agung memulai di tengah siklus), lalu 120 tahun tiap kurup. Hari-pasaran 1 Sura tahun Alip pertama tiap kurup:
+// Jumat Legi (1555), Kamis Kliwon (1627), Rabu Wage (1747), Selasa Pon (1867), tiap kurup mundur satu hari dan satu pasaran.
 const KURUP = [
-  ['Jamingiyah', "A'ahgi", 1555, 0],
-  ['Kamsiyah', 'Amiswon', 1675, 0],
-  ['Arbangiyah', 'Aboge', 1749, 2],
-  ['Salasiyah', 'Asapon', 1867, 0]
+  ['Jamingiyah', "A'ahgi", 1555],
+  ['Kamsiyah', 'Amiswon', 1627],
+  ['Arbangiyah', 'Aboge', 1747],
+  ['Salasiyah', 'Asapon', 1867]
 ];
-const KURUP3_JOGJA = ['Arbangiyah', 'Aboge', 1795, 0]; // Yogyakarta: kurup 3 hanya 72 taun
 
 const bulan = (...tambahan) => tambahan.map(x => 29 + x);
 const W354 = bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0);
@@ -162,9 +163,8 @@ const WTD = {
 const NKRP = 6; // sampai 2226 AJ: jauh melampaui 2052
 const tabelCache = new Map();
 
-function bangunTabel(jogja) {
+function bangunTabel() {
   const kurup = KURUP.map(k => [...k]);
-  if (jogja) kurup[2] = [...KURUP3_JOGJA];
   const kolom = Array.from({ length: 120 * NKRP }, () => new Array(12).fill(0));
   for (let k = 1; k <= NKRP; k++) {
     const wtd = WTD[Math.min(k, 4)];
@@ -175,19 +175,17 @@ function bangunTabel(jogja) {
       ? [W354, W355, W354, W354, wtd, W354, W354, W355]
       : [W354, W355, W354, W354, W355, W354, W354, W355];
     const krp = Array.from({ length: 120 }, (_, i) => [...hw[i % 8]]);
-    let awal, panjang, geser;
+    let awal, panjang;
     if (k < kurup.length) {
       awal = kurup[k - 1][2];
       panjang = kurup[k][2] - awal;
-      geser = kurup[k - 1][3];
     } else {
       awal = kurup[kurup.length - 1][2] + 120 * (k - kurup.length);
       panjang = 120;
-      geser = 0;
     }
-    krp[panjang - 1 + geser][11] -= 1; // kurup berakhir satu hari lebih cepat (pada tahun terakhir yang benar-benar dipakai)
+    krp[panjang - 1][11] -= 1; // kurup berakhir satu hari lebih cepat (pada tahun terakhirnya)
     for (let y = awal; y < awal + panjang; y++) {
-      kolom[y - AJ] = [...krp[y - awal + geser]];
+      kolom[y - AJ] = [...krp[y - awal]];
     }
   }
   const kumulatif = [];
@@ -196,9 +194,9 @@ function bangunTabel(jogja) {
   return { kurup, kumulatif };
 }
 
-function tabel(jogja) {
-  if (!tabelCache.has(jogja)) tabelCache.set(jogja, bangunTabel(jogja));
-  return tabelCache.get(jogja);
+function tabel() {
+  if (!tabelCache.has('baku')) tabelCache.set('baku', bangunTabel());
+  return tabelCache.get('baku');
 }
 
 /** Indeks pertama dalam `arr` (naik) yang nilainya >= x. */
@@ -227,13 +225,12 @@ function hariMulia({ dina, wulanIdx, wukuNama, dinapitu, pasaran }) {
 /**
  * Kalender Jawa lengkap untuk satu tanggal Masehi.
  * @param {string|Date|number[]|object} input
- * @param {{jogja?: boolean}} [opsi] jogja: kurup 3 versi Kasultanan Yogyakarta (hanya memengaruhi 1821–1866)
  */
-export function kalenderJawa(input, { jogja = false } = {}) {
+export function kalenderJawa(input) {
   const dt = nomorHari(input);
   if (dt < T0) throw new RangeError('Kalender Jawa Sultan Agungan dimulai 8 Juli 1633 (1 Sura 1555 AJ)');
   const dasar = bagianSiklus(dt);
-  const { kurup, kumulatif } = tabel(jogja);
+  const { kurup, kumulatif } = tabel();
 
   const dti = dt - T0 + 1;
   const kk = cariPertama(kumulatif, dti);

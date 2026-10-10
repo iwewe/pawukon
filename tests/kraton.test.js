@@ -64,9 +64,9 @@ test('mesin cocok dengan Karaton pada SELURUH awal bulan kurup Asapon (1936-2052
   }
 });
 
-test('mesin cocok dengan Karaton pada seluruh awal bulan kurup Aboge yang dipakai mesin (1821-1935): 1416 bulan', () => {
+test('mesin cocok dengan Karaton pada seluruh awal bulan kurup Aboge (AJ 1747-1866, 1819-1936): 1440 bulan', () => {
   const hasil = awalBulan('Aboge', '1819-01-01', '1936-03-31');
-  assert.equal(hasil.length, 1416);
+  assert.equal(hasil.length, 1440);
   for (const { iso, k } of hasil) {
     assert.equal(k.weton, ABOGE[k.tanggal.taun][k.tanggal.wulan], `${iso}: 1 ${k.tanggal.wulan} ${k.tanggal.tahun} ${k.tanggal.taun}`);
   }
@@ -86,32 +86,32 @@ test('1 Sura menurut Karaton untuk tahun-tahun terkini (AJ 1956-1960)', () => {
   assert.deepEqual(awal(1960, '2026-06-01'), { iso: '2026-06-17', weton: 'Rabu Kliwon' });    // Be
 });
 
-test('kasus terbuka (batas kurup): Karaton menyebut Aboge mulai AJ 1747, mesin mulai AJ 1749', () => {
-  // Mesin memakai batas kurup weton.m (Arbangiyah mulai 1749). Tesis Marhamah menyebut Aboge mulai 1747 J (1819 M).
-  // Pada AJ 1746-1748 (1819-1821 M) mesin tidak cocok dengan tabel Aboge; belum diselesaikan.
-  const k = kalenderJawa('1820-06-01');
-  assert.equal(k.tanggal.kurupPendek, 'Amiswon');
-  const dalamAboge = awalBulan('Amiswon', '1819-01-01', '1821-06-01');
-  const cocok = dalamAboge.filter(({ k: x }) => x.weton === ABOGE[x.tanggal.taun][x.tanggal.wulan]).length;
-  assert.equal(cocok < dalamAboge.length, true);
+test('batas kurup menurut Karaton: 1 Sura tahun Alip pertama tiap kurup, mundur satu hari dan satu pasaran', () => {
+  const awalAlip = { "A'ahgi": ['1633-07-08', 'Jumat Legi', 1555], Amiswon: ['1703-05-17', 'Kamis Kliwon', 1627], Aboge: ['1819-10-20', 'Rabu Wage', 1747], Asapon: ['1936-03-24', 'Selasa Pon', 1867] };
+  for (const [kurup, [iso, weton, tahun]] of Object.entries(awalAlip)) {
+    const k = kalenderJawa(iso);
+    assert.deepEqual([k.tanggal.dina, k.tanggal.wulan, k.tanggal.tahun, k.tanggal.taun, k.tanggal.kurupPendek, k.weton], [1, 'Sura', tahun, 'Alip', kurup, weton], kurup);
+    // sehari sebelumnya masih kurup sebelumnya (kecuali awal kalender)
+  }
+  assert.equal(kalenderJawa('1703-05-16').tanggal.kurupPendek, "A'ahgi");
+  assert.equal(kalenderJawa('1819-10-19').tanggal.kurupPendek, 'Amiswon');
+  assert.equal(kalenderJawa('1936-03-23').tanggal.kurupPendek, 'Aboge');
+  assert.equal(kalenderJawa('1936-03-23').tanggal.dina, 29); // kurup berakhir sehari lebih cepat: Besar tahun terakhir 29 hari
 });
 
-test('12 titik data dari Almanak Jawa dan kalender Karaton (tesis Marhamah 2022, hlm. 116-125) cocok', () => {
-  // [tanggal Masehi, tanggal Jawa, bulan, tahun AJ]; 1 Poso 1953 tercetak "24 Mei 2020" di teks tetapi 24 April 2020 di tabel
-  // dan pada 1 Ramadhan 1441 H (Jumat Kliwon); yang dipakai 24 April.
-  const titik = [
-    ['1929-02-11', 1, 'Pasa', 1859], ['1929-03-13', 1, 'Sawal', 1859], ['1934-01-18', 1, 'Sawal', 1864],
-    ['1937-11-04', 1, 'Pasa', 1868], ['1937-12-04', 1, 'Sawal', 1868], ['1939-10-14', 1, 'Pasa', 1870],
-    ['2012-07-20', 1, 'Pasa', 1945], ['2012-08-19', 1, 'Sawal', 1945], ['2020-04-24', 1, 'Pasa', 1953],
-    ['2020-05-24', 1, 'Sawal', 1953], ['2022-04-03', 1, 'Pasa', 1955], ['2022-05-03', 1, 'Sawal', 1955]
-  ];
-  for (const [iso, dina, wulan, tahun] of titik) {
-    const k = kalenderJawa(iso).tanggal;
-    assert.deepEqual([k.dina, k.wulan, k.tahun], [dina, wulan, tahun], iso);
+test('1 Sura tahun Alip selalu jatuh pada hari-pasaran kurupnya, di SEMUA tahun Alip (1555-1986 AJ)', () => {
+  const anchor = { "A'ahgi": 'Jumat Legi', Amiswon: 'Kamis Kliwon', Aboge: 'Rabu Wage', Asapon: 'Selasa Pon' };
+  const hitung = {};
+  for (let n = nomorHari('1633-07-08'); n <= nomorHari('2052-08-25'); n++) {
+    const k = kalenderJawa(isoDariNomor(n));
+    if (k.tanggal.dina !== 1 || k.tanggal.wulan !== 'Sura' || k.tanggal.taun !== 'Alip') continue;
+    hitung[k.tanggal.kurupPendek] = (hitung[k.tanggal.kurupPendek] ?? 0) + 1;
+    assert.equal(k.weton, anchor[k.tanggal.kurupPendek], `1 Sura Alip ${k.tanggal.tahun}`);
   }
-  // hari yang disebut tesis: 1 Poso 1945 = Jumat Kliwon, 1 Sawal 1945 = Ahad Kliwon, 1 Poso 1955 = Ahad Wage, 1 Sawal 1955 = Selasa Wage
-  assert.equal(kalenderJawa('2012-07-20').weton, 'Jumat Kliwon');
-  assert.equal(kalenderJawa('2012-08-19').weton, 'Minggu Kliwon');
-  assert.equal(kalenderJawa('2022-04-03').weton, 'Minggu Wage');
-  assert.equal(kalenderJawa('2022-05-03').weton, 'Selasa Wage');
+  assert.deepEqual(hitung, { "A'ahgi": 9, Amiswon: 15, Aboge: 15, Asapon: 15 });
+});
+
+test('opsi jogja tidak ada lagi: kalenderJawa hanya mengenal kalender Karaton Yogyakarta', () => {
+  assert.equal(kalenderJawa('1850-01-01').teks, kalenderJawa('1850-01-01', { jogja: true }).teks); // argumen kedua diabaikan
+  assert.equal(kalenderJawa.length, 1);
 });

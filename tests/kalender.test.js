@@ -105,15 +105,6 @@ test(`regresi: ${golden.umum.length} tanggal cocok dengan port weton.m`, () => {
   }
 });
 
-test(`regresi Yogyakarta: ${golden.jogja.length} tanggal`, () => {
-  for (const g of golden.jogja) {
-    const k = kalenderJawa(g.iso, { jogja: true });
-    assert.deepEqual(
-      { dina: k.tanggal.dina, wulan: k.tanggal.wulan, aj: k.tanggal.tahun, taun: k.tanggal.taun, kurup: k.tanggal.kurup },
-      { dina: g.dina, wulan: g.wulan, aj: g.aj, taun: g.taun, kurup: g.kurup }, g.iso);
-  }
-});
-
 // --- batas dan masukan -------------------------------------------------------------------
 
 test('sebelum 8 Juli 1633: kalender Jawa menolak, weton/wuku tetap dihitung', () => {
