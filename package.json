@@ -1,0 +1,16 @@
+{
+  "name": "pawukon",
+  "version": "0.2.0",
+  "description": "Kalender Jawa (weton, wuku, tanggal Jawa) dan tafsir kitab Betaljemur Adammakna: jodoh, hari baik, rezeki, kesehatan, rumah, bepergian, jam, hajatan, watak, ciri tubuh (tanpa dependensi)",
+  "keywords": ["javanese-calendar", "weton", "pawukon", "primbon", "betaljemur", "kalender-jawa"],
+  "type": "module",
+  "private": true,
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "files": ["src", "README.md", "NOTICE.md"],
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": { "node": ">=18" },
+  "license": "MIT"
+}
