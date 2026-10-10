@@ -157,8 +157,8 @@ yang sudah dikoreksi pada 3344 tanggal tanpa selisih. Epos: 8 Juli 1633 = Jumat 
   (Sabtu Kliwon) dan siklus Galungan-Kuningan 2024-2027. Penyelarasan wuku dan pasaran juga cocok dengan 11 hari Taliwangke dan
   Samparwangke yang disebut kitab (wuku + hari + pasaran), bukti yang tidak bergantung pada `weton.m`.
 - **Tanggal Jawa:** cocok dengan tabel awal bulan kalender **Karaton Yogyakarta** untuk kurup Asapon (1936-2052) dan Aboge (1819-1935), anchor 1 Sura Alip di
-  keempat kurup, serta 12 titik Almanak Jawa (lihat bagian Verifikasi). Panjang bulan Amahgi dan Amiswon (1633-1819) belum punya tabel pembanding.
-- **Tes regresi:** `tests/golden.json` berisi 458 tanggal (+76 Yogyakarta) dari port Python `weton.m` yang sudah diberi dua koreksi Karaton (bukan keluaran Octave asli); `tests/kraton.test.js` memeriksa langsung terhadap tabel Karaton.
+  keempat kurup, serta 12 titik Almanak Jawa (lihat bagian Verifikasi). Untuk 1633-1819 (Amahgi, Amiswon) tidak ada tabel Karaton; di sana mesin mengikuti metode windu asli (lihat "Metode tertua dan sumber pembanding").
+- **Tes regresi:** `tests/golden.json` berisi 458 tanggal dari port Python `weton.m` yang sudah dikoreksi agar cocok dengan Karaton dan metode windu asli (bukan keluaran Octave asli); `tests/kraton.test.js` memeriksa langsung terhadap tabel Karaton.
 - **Hari mulia** yang dihitung: Siji Sura, Kuningan, Hanggara Asih, Dina Mulya, Dina Purnama ("Aboge" dan "Daltugi" di `weton.m`
   hanya memeriksa sebagian syarat, jadi sengaja tidak dimasukkan).
 
@@ -206,7 +206,25 @@ adalah kecocokan dengan Karaton: (a) pada konfigurasi `weton.m`, 1 Sura Alip 162
 Kamis Kliwon (Amiswon mulai 1627) dan Rabu Wage (Aboge mulai 1747); (b) tabel Aboge Karaton cocok pada 1416 dari 1440 awal bulan, dengan 24 selisih tepat pada
 AJ 1747-1748. Konfigurasi Karaton lolos semuanya (1440 dari 1440), dan anchor 1 Sura Alip mundur satu hari dan satu pasaran tiap kurup (Jumat Legi, Kamis Kliwon,
 Rabu Wage, Selasa Pon). Maka batas kurup Karaton dipakai dan opsi `{ jogja: true }` (kurup ke-3 mulai 1795, bertentangan dengan Karaton Yogyakarta sendiri) dihapus.
-Panjang bulan Amahgi dan Amiswon belum punya tabel Karaton untuk diuji; struktur bulannya masih mengikuti `weton.m` (tahun Dal Amiswon memakai pola bulan khusus `weton.m`).
+Amahgi dan Amiswon tidak punya tabel Karaton untuk diuji; pola bulan di sana kini sama dengan metode windu asli (lihat bagian berikut), setelah pola bulan khusus tahun Dal milik `weton.m` di Amiswon dihapus.
+
+### Metode tertua dan sumber pembanding
+
+Metode tertua adalah **windu murni**: pola 8 tahun (Ehe, Dal, Jimakir = 355 hari; bulan 30/29; Besar 30 pada tahun wuntu), tanpa koreksi kurup 120 tahun (tesis hlm. 52-56).
+Mesin ini adalah metode itu **ditambah** koreksi kurup Karaton (tiap kurup membuat kalender mundur satu hari). Ini diuji langsung di `tests/kraton.test.js` dengan
+implementasi windu murni yang terpisah: mesin sama pada **setiap hari** 1633-2052 setelah digeser 0, 1, 2, 3 hari menurut kurup.
+
+Perbandingan sumber (diukur pada awal tahun 1 Sura AJ 1555-1986, relatif terhadap mesin ini yang cocok dengan Karaton):
+
+| Sumber | Metode | Hasil |
+|---|---|---|
+| skrip almanak (`kalender_jawa_sultan_agungan.py`) | windu murni, tanpa kurup, berjangkar 1 Sura 1959 = 27 Juni 2025 | persis metode tertua; selisih konstan -3, -2, -1, 0 hari per kurup; hanya tepat pada Asapon |
+| `research-system-javanese-profile` | batas kurup sama dengan Karaton; dua kurup awal memakai Ehe/Dal/Jimakir, lalu Ehe/Je/Jimakir mulai Aboge | sama persis pada AJ 1555-1626; selisih +1 hingga +2 hari pada 1627-1862 dan +-1 hari sesudahnya |
+| `weton.m` | empat kurup dengan batas 1675 dan 1749; Je 355 dan Dal 354; pola bulan khusus tahun Dal Amiswon | sama persis hanya pada AJ 1555-1626 |
+| paket npm `primbon` | tipe tanpa kurup | cocok sejak 1950; error pada 1561 dari 3344 tanggal uji sebelum 1900; selisih 1-3 hari di antaranya |
+| `weton.c`, `weton.pl` | hanya weton dan wuku | tidak menghitung tanggal Jawa |
+
+Kurup tertua (Amahgi, AJ 1555-1626) disepakati semua sumber yang menghitungnya; perbedaan muncul ketika sumber menambahkan aturan yang lebih baru (Je menggantikan Dal).
 
 ### Acuan kalender (kebijakan)
 
@@ -276,7 +294,7 @@ Tercatat di data dan keluar pada hasil fungsi yang bersangkutan. Keganjilan ceta
 | Bab 120-129 selain bagian di atas | 120 (penilaian perempuan menurut warna kulit, bentuk badan, gerak-gerik), 121, 122, 124-127, 128-129 (selain catatan) | **Sengaja tidak dimasukkan:** bukan hitungan kalender dan menstigma (penilaian watak dan kesetiaan perempuan dari penampilan; penilaian erotis tubuh), mantra dan tata cara (125-126), ramuan pembersih (127), aturan hari yang mengaitkan kecacatan atau "kegilaan" anak dengan perilaku orang tua (122), serta pantangan, ramuan, dan doa kehamilan (128-129) |
 | Ramuan, mantra, doa, tumbal, ritual bepergian | 75-90, 138, 139, 142, 169-171, 182-184, 186, 200-221, 280-285, 319, 323-324, 326; doa pada 157; busana/ritual pada 158 dan 166 | **Sengaja tidak dimasukkan** (ramuan dapat membahayakan, doa bukan data) |
 | Tanda alam, hewan, mimpi, pencuri, barang hilang | 222-317 | Di luar perhitungan kalender |
-| Panjang bulan kurup Amahgi dan Amiswon (1633-1819) | | Batas kurup sudah mengikuti Karaton; tabel awal bulan Karaton untuk dua kurup ini belum ada untuk diuji |
+| Tabel awal bulan Karaton untuk kurup Amahgi dan Amiswon (1633-1819) | | Tidak ada; kurup ini hanya diuji terhadap metode windu asli dan anchor 1 Sura Alip |
 
 ## Pengembangan
 

@@ -153,12 +153,9 @@ const KURUP = [
 const bulan = (...tambahan) => tambahan.map(x => 29 + x);
 const W354 = bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0);
 const W355 = bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1);
-const WTD = {
-  1: bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1),
-  2: bulan(1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1),
-  3: bulan(1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1),
-  4: bulan(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0)
-};
+// Pola windu Sultan Agungan, sama di semua kurup: tahun wuntu (355 hari, Besar 30) = Ehe, Dal, Jimakir (tahun ke-2, 5, 8);
+// bulan ganjil 30 hari, bulan genap 29 hari. Lihat README ("Verifikasi dengan kalender Karaton").
+const WINDU_POLA = [W354, W355, W354, W354, W355, W354, W354, W355];
 
 const NKRP = 6; // sampai 2226 AJ: jauh melampaui 2052
 const tabelCache = new Map();
@@ -167,13 +164,9 @@ function bangunTabel() {
   const kurup = KURUP.map(k => [...k]);
   const kolom = Array.from({ length: 120 * NKRP }, () => new Array(12).fill(0));
   for (let k = 1; k <= NKRP; k++) {
-    const wtd = WTD[Math.min(k, 4)];
-    // Tahun wuntu (355 hari) = Ehe, Dal, Jimakir (tahun ke-2, 5, 8), sama dengan tabel Karaton (lihat README, bagian Kraton).
-    // weton.m memakai tahun ke-4 (Je) = 355 dan tahun ke-5 (Dal) = 354 pada kurup ke-3 dan seterusnya; itu menyimpang
-    // dari kalender Karaton Yogyakarta pada seluruh tahun Dal.
-    const hw = k <= 2
-      ? [W354, W355, W354, W354, wtd, W354, W354, W355]
-      : [W354, W355, W354, W354, W355, W354, W354, W355];
+    // weton.m menyimpang dari pola ini: Je = 355 dan Dal = 354 pada kurup ke-3 dst., dan pola bulan khusus pada tahun Dal kurup ke-2.
+    // Keduanya tidak didukung tabel Karaton maupun metode windu asli (lihat README).
+    const hw = WINDU_POLA;
     const krp = Array.from({ length: 120 }, (_, i) => [...hw[i % 8]]);
     let awal, panjang;
     if (k < kurup.length) {

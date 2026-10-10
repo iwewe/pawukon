@@ -115,3 +115,37 @@ test('opsi jogja tidak ada lagi: kalenderJawa hanya mengenal kalender Karaton Yo
   assert.equal(kalenderJawa('1850-01-01').teks, kalenderJawa('1850-01-01', { jogja: true }).teks); // argumen kedua diabaikan
   assert.equal(kalenderJawa.length, 1);
 });
+
+// --- metode windu murni (skema asli Sultan Agung, tanpa kurup) -----------------------------------------------------------------------
+// Implementasi terpisah dari kalender.js: pola 8 tahun (354, 355, 354, 354, 355, 354, 354, 355), bulan 30/29, Besar 30 pada tahun wuntu,
+// dihitung terus dari 1 Sura 1555 = 8 Juli 1633. Mesin harus sama dengan metode ini pada SETIAP hari, bergeser n hari menurut jumlah kurup yang
+// sudah lewat (tiap kurup membuat kalender Karaton mundur satu hari).
+
+function windumurni() {
+  const POLA = [354, 355, 354, 354, 355, 354, 354, 355];
+  const hasil = []; // indeks hari sejak 8 Juli 1633 -> [dina, bulan, tahun]
+  for (let t = 1555; hasil.length < 160000; t++) {
+    const wuntu = POLA[(t - 1555) % 8] === 355;
+    for (let b = 0; b < 12; b++) {
+      const panjang = b === 11 ? (wuntu ? 30 : 29) : (b % 2 === 0 ? 30 : 29);
+      for (let d = 1; d <= panjang; d++) hasil.push([d, WULAN[b], t]);
+    }
+  }
+  return hasil;
+}
+
+test('mesin = metode windu murni + kurup: sama pada setiap hari 1633-2052 (bergeser 0, 1, 2, 3 hari menurut kurup)', () => {
+  const murni = windumurni();
+  const awal = nomorHari('1633-07-08');
+  const n = { "A'ahgi": 0, Amiswon: 1, Aboge: 2, Asapon: 3 };
+  const hitung = {};
+  const akhir = nomorHari('2052-08-25');
+  for (let h = awal; h <= akhir; h++) {
+    const k = kalenderJawa(isoDariNomor(h));
+    const m = murni[h - awal + n[k.tanggal.kurupPendek]];
+    hitung[k.tanggal.kurupPendek] = (hitung[k.tanggal.kurupPendek] ?? 0) + 1;
+    assert.deepEqual([k.tanggal.dina, k.tanggal.wulan, k.tanggal.tahun], m, isoDariNomor(h));
+  }
+  assert.equal(Object.values(hitung).reduce((a, b) => a + b, 0), akhir - awal + 1);
+  assert.equal(hitung["A'ahgi"], 25514);
+});
